@@ -1,0 +1,14 @@
+body {
+    background-color: #40d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+a {
+    width: 65dvw;
+    height: 35vh;
+    background-color: chocolate;
+    color: #40d;
+    font-size: 1.6rem;
+}
