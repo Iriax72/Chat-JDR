@@ -36,7 +36,7 @@ function sendMessage(message) {
 }
 
 function propose(text, next) {
-    btn = document.createElement('button');
+    const btn = document.createElement('button');
     btn.innerText = text;
     btn.addEventListener('click', () => {
         affichePlayerMessage(text);
@@ -55,12 +55,12 @@ function resolveNoeud(noeud) {
         main.removeChild(waitingP);
         sendMessage(noeud.text);
         setTimeout(() => {
-            noeud.forEach(choix => {
+            noeud.choix.forEach(choix => {
                 const next = noeuds[choix.next]
                 propose(choix.text, next);
             });
         }, noeud.text.length * 50);
-    }, noeud.text.length * 100);
+    }, noeud.text.length * 50);
 }
 
 function startGame() {
