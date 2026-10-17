@@ -26,8 +26,13 @@ function affichePlayerMessage(message) {
 function sendMessage(message) {
     const p = document.createElement('p');
     p.classList.add('MJ-text');
-    p.innerText = message;
+    p.innerText = "";
     main.appendChild(p);
+    for (let i = 0; i < message.length; i++) {
+        setTimeout(() => {
+            p.innerText += message[i];
+        }, i*100);
+    }
 }
 
 function propose(text, next) {
