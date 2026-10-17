@@ -30,8 +30,8 @@ function sendMessage(message) {
     main.appendChild(p);
     for (let i = 0; i < message.length; i++) {
         setTimeout(() => {
-            p.innerText += message[i];
-        }, i*100);
+            p.innerText = message.slice(0, i+1);
+        }, i*50);
     }
 }
 
@@ -54,10 +54,12 @@ function resolveNoeud(noeud) {
     setTimeout(() => {
         main.removeChild(waitingP);
         sendMessage(noeud.text);
-        noeud.choix.forEach(choix => {
-            const next = noeuds[choix.next]
-            propose(choix.text, next);
-        });
+        setTimeout(() => {
+            noeud.forEach(choix => {
+                const next = noeuds[choix.next]
+                propose(choix.text, next);
+            });
+        }, noeud.text.length * 50);
     }, noeud.text.length * 100);
 }
 

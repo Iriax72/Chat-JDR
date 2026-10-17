@@ -56,6 +56,7 @@ main p {
 }
 
 main .MJ-text {
+    white-space: pre-wrap;
     align-self: flex-start;
     background-color: #aae;
 }
