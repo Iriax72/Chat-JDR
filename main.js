@@ -8,12 +8,11 @@ function sendMessage(message, waitingTime) {
     main.appendChild(waiting_div);
     setTimeout(() => {
         main.removeChild(waiting_div);
+        const text_div = document.createElement('div');
+        text_div.classList.add('MJ-text-div');
+        text_div.innerText = message;
+        main.appendChild(text_div);
     }, waitingTime)
-
-    const text_div = document.createElement('div');
-    text_div.classList.add('MJ-text-div');
-    text_div.innerText = message;
-    main.appendChild(text_div);
 }
 
 setTimeout(() => {
