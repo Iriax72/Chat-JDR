@@ -48,7 +48,9 @@ function propose(text, next) {
     footer.appendChild(btn);
 }
 
-function resolveNoeud(noeud) {
+function resolveNoeud(noeudName) {
+    const noeud = noeuds[noeudName];
+    localStorage.setItem('currentNoeud', noeudName);
     const waitingP = document.createElement('p');
     waitingP.classList.add('MJ-text');
     waitingP.innerText = '...';
@@ -59,13 +61,17 @@ function resolveNoeud(noeud) {
         sendMessage(noeud.text);
         setTimeout(() => {
             noeud.choix.forEach(choix => {
-                const next = noeuds[choix.next]
-                propose(choix.text, next);
+                propose(choix.text, choix.next);
             });
         }, noeud.text.length * writingTime);
     }, noeud.text.length * writingTime);
 }
 
 function startGame() {
-    resolveNoeud(noeuds.start);
+    const currentNoeud = localStorage.getItem('currentNoeud');
+    if (currentNoeud) {
+        resolveNoeud(currentNoeud);
+    } else {
+        resolveNoeud('start');
+    }
 }
