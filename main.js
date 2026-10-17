@@ -16,9 +16,8 @@ function sendMessage(message, waitingTime) {
 }
 
 setTimeout(() => {
-    sendMessage('Salut', 1500)
-}, 1000);
-
-setTimeout(() => {
-    sendMessage('Je suis le vieux sage de l\'antique maison du roi mage (héhéhé...)', 1000);
-}, 500)
+    sendMessage('Salut', 2000)
+    setTimeout(() => {
+        sendMessage('Je suis le vieux sage de l\'antique maison du roi mage (héhéhé...)', 4500);
+    }, 1500)
+}, 1500);

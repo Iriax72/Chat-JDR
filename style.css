@@ -48,6 +48,7 @@ main {
 }
 
 main div {
+    margin: 5px;
     border-radius: 8px;
     color: black;
 }
