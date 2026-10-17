@@ -18,5 +18,13 @@
         "choix": [
             { "text": "Recommencer", "next": "start" }
         ]
+    },
+    "continuer son chemin": {
+        "text": "Alors que vous vous baladiez dans la foret, vous tomber sur un groupe d'orks trapus n'ayant qu'une envie: vous dévorer!\n\"Mhhh voila de la bonne viande\"\nComment réagissez-vous ?",
+        "choix": [
+            { "text": "Je prends mes jambes à mon cou! Ils sont si grand" },
+            { "text": "Je fonce! Il ne pourront pas résister à ma fureur" },
+            { "text": "Je leur propose de chasser pour eux" }
+        ]
     }
 }
