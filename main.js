@@ -24,7 +24,7 @@ function sendMessage(message) {
 }
 
 function propose(text, next) {
-    btn = document.createElement('btn');
+    btn = document.createElement('button');
     btn.innerText = text;
     btn.addEventListener('click', () => {
         resolveNoeud(next);
@@ -40,6 +40,7 @@ function resolveNoeud(noeud) {
     setTimeout(() => {
         main.removeChild(waitingDiv);
         sendMessage(noeud.text);
+        footer.innerHTML = '';
         noeud.choix.forEach(choix => {
             const next = noeuds[choix.next]
             propose(choix.text, next);

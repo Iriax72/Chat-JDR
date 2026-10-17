@@ -54,6 +54,7 @@ main div {
 }
 
 main .MJ-text-div {
+    padding: 5px;
     background-color: antiquewhite;
     max-width: 70%;
     min-width: 10%;
