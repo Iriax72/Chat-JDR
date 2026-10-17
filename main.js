@@ -26,9 +26,9 @@ fetch('./noeuds.json')
         noeuds = donnees;
         startGame();
     })
-    .catch(erreur => {
-        console.error("Erreur de chargement :", erreur);
-        alert("Impossible de charger le jeu ! Vérifier le fichier JSON.");
+    .catch(error => {
+        console.error("Erreur de chargement :", error);
+        alert("Impossible de charger le jeu ! Vérifier le fichier JSON. (" + error + ')');
     });
 
 
