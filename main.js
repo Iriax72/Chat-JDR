@@ -8,6 +8,7 @@ fetch('./noeuds.json')
     .then(reponse => reponse.json())
     .then(donnees => {
         noeuds = donnees;
+        startGame();
     })
     .catch(erreur => {
         console.error("Erreur de chargement :", erreur);
@@ -64,4 +65,6 @@ setTimeout(() => {
 }, 1500);
 */
 
-resolveNoeud(noeuds.start);
+function startGame() {
+    resolveNoeud(noeuds.start);
+}
