@@ -1,0 +1,22 @@
+{
+    "start": {
+        "text": "Heyhey je suis le roi mage, donne moi ta moula",
+        "choix": [
+            { "text": "ok", "next": "plus d'argent" },
+            { "text": "jamais !", "next": "defaite" }
+        ]
+    },
+    "plus d'argent": {
+        "text": "Quel lache, vous n'avez plus un rond",
+        "choix": [
+            { "text": "continuer son chemin", "next": "TODO" },
+            { "text": "Abandonner", "next": "start" }
+        ]
+    },
+    "defaite": {
+        "text": "Le roi mage se jette sur vous.\nVotre derniere vision aura été sa dague qu'il sortait a peine de son fourreau",
+        "choix": [
+            { "text": "Recommencer", "next": "start" }
+        ]
+    }
+}
