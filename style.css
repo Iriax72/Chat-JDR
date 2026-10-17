@@ -43,7 +43,6 @@ main {
     background-color: #456;
     display: flex;
     flex-direction: column;
-    align-items: start;
     justify-content: start;
 }
 
@@ -51,13 +50,19 @@ main div {
     margin: 5px;
     border-radius: 8px;
     color: black;
-}
-
-main .MJ-text-div {
     padding: 5px;
-    background-color: antiquewhite;
     max-width: 70%;
     min-width: 10%;
+}
+
+main .MJ-text {
+    align-self: flex-start;
+    background-color: #aae;
+}
+
+main .player-text {
+    align-self: flex-end;
+    background-color: #eaa;
 }
 
 footer {

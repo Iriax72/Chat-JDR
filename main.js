@@ -16,17 +16,25 @@ fetch('./noeuds.json')
     });
 
 
+function affichePlayerMessage(message) {
+    const p = document.createElement('p');
+    p.classList.add('player-text');
+    p.innerText = message;
+    main.appendChild(p);
+}
+
 function sendMessage(message) {
-    const text_div = document.createElement('div');
-    text_div.classList.add('MJ-text-div');
-    text_div.innerText = message;
-    main.appendChild(text_div);
+    const p = document.createElement('p');
+    p.classList.add('MJ-text');
+    p.innerText = message;
+    main.appendChild(p);
 }
 
 function propose(text, next) {
     btn = document.createElement('button');
     btn.innerText = text;
     btn.addEventListener('click', () => {
+        affichePlayerMessage(text);
         resolveNoeud(next);
     });
     footer.appendChild(btn);
