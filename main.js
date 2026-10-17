@@ -2,6 +2,9 @@
 const main = document.querySelector('main');
 const footer = document.querySelector('footer');
 
+// Valeurs arbitraires
+const writingTime = 30; // [ms/char]
+
 // Obtenir les noeuds a partie de noeuds.json
 let noeuds = {};
 fetch('./noeuds.json')
@@ -31,7 +34,7 @@ function sendMessage(message) {
     for (let i = 0; i < message.length; i++) {
         setTimeout(() => {
             p.innerText = message.slice(0, i+1);
-        }, i*50);
+        }, i * writingTime);
     }
 }
 
@@ -59,8 +62,8 @@ function resolveNoeud(noeud) {
                 const next = noeuds[choix.next]
                 propose(choix.text, next);
             });
-        }, noeud.text.length * 50);
-    }, noeud.text.length * 50);
+        }, noeud.text.length * writingTime);
+    }, noeud.text.length * writingTime);
 }
 
 function startGame() {
