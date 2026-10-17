@@ -46,7 +46,7 @@ main {
     justify-content: start;
 }
 
-main div {
+main p {
     margin: 5px;
     border-radius: 8px;
     color: black;
