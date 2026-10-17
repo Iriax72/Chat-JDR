@@ -1,4 +1,5 @@
 // References DOM
+const crossBtn = document.querySelector('#cross-btn');
 const main = document.querySelector('main');
 const footer = document.querySelector('footer');
 
@@ -17,6 +18,12 @@ const stats = JSON.parse(localStorage.getItem('stats')) ?? {
     sag: 14,
     constit: 10,
 };
+
+crossBtn.addEventListener('click', () => {
+    localStorage.removeItem('currentNoeud');
+    localStorage.removeItem('historique');
+    localStorage.removeItem('stats');
+})
 
 // Obtenir les noeuds a partie de noeuds.json
 let noeuds = {};
