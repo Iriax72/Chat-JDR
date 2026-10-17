@@ -27,7 +27,7 @@ function propose(text, next) {
     btn = document.createElement('btn');
     btn.innerText = text;
     btn.addEventListener('click', () => {
-        alert('soyez redirigés vers' + next);
+        resolveNoeud(next);
     });
     footer.appendChild(btn);
 }
@@ -41,7 +41,8 @@ function resolveNoeud(noeud) {
         main.removeChild(waitingDiv);
         sendMessage(noeud.text);
         noeud.choix.forEach(choix => {
-            propose(choix.text, choix.next);
+            const next = noeuds[choix.next]
+            propose(choix.text, next);
         });
     }, noeud.text.length * 100);
 }
