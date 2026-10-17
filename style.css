@@ -5,7 +5,6 @@ body {
     height: 100dvh;
     display: flex;
     flex-direction: column;
-    color: #edc;
 }
 
 header, main, footer {
@@ -50,6 +49,7 @@ main {
 
 main div {
     border-radius: 8px;
+    color: black;
 }
 
 main .MJ-text-div {
