@@ -41,13 +41,13 @@ function propose(text, next) {
 }
 
 function resolveNoeud(noeud) {
-    const waitingDiv = document.createElement('div');
-    waitingDiv.classList.add('MJ-text-div');
-    waitingDiv.innerText = '...';
-    main.appendChild(waitingDiv)
+    const waitingP = document.createElement('p');
+    waitingP.classList.add('MJ-text');
+    waitingP.innerText = '...';
+    main.appendChild(waitingP)
     footer.innerHTML = '';
     setTimeout(() => {
-        main.removeChild(waitingDiv);
+        main.removeChild(waitingP);
         sendMessage(noeud.text);
         noeud.choix.forEach(choix => {
             const next = noeuds[choix.next]
