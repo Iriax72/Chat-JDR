@@ -37,10 +37,10 @@ function resolveNoeud(noeud) {
     waitingDiv.classList.add('MJ-text-div');
     waitingDiv.innerText = '...';
     main.appendChild(waitingDiv)
+    footer.innerHTML = '';
     setTimeout(() => {
         main.removeChild(waitingDiv);
         sendMessage(noeud.text);
-        footer.innerHTML = '';
         noeud.choix.forEach(choix => {
             const next = noeuds[choix.next]
             propose(choix.text, next);
