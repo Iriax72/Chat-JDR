@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -35,6 +39,15 @@ header .text {
     flex-direction: column;
     align-items: start;
     justify-content: center;
+    color: antiquewhite;
+}
+
+header a {
+    border-radius: 50%;
+    background-color: #c43;
+    color: antiquewhite;
+    width: 50px;
+    height: 50px;
 }
 
 main {
@@ -44,6 +57,7 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: start;
+    overflow-y: scroll;
 }
 
 main p {
@@ -72,9 +86,12 @@ footer {
     padding-bottom: 12px;
     background-color: #234;
     display: flex;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
 footer button {
+    margin: 8px;
     background-color: antiquewhite;
     color: black;
     border-radius: 10%;
