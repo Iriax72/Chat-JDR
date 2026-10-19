@@ -137,16 +137,16 @@ function appliquerModificationsStats(modifications) {
 function updateStat(stat, value) {
     stats[stat] = value;
     if (stat === 'hp') {
-        statsSpan[stat].innerText = max(value, 0) + '/20';
+        statsSpan[stat].innerText = Math.max(value, 0) + '/20';
         return;
     }
     if (stat === 'po') {
-        statsSpan[stat].innerText = max(value, 0);
+        statsSpan[stat].innerText = Math.max(value, 0);
         return;
     }
     let modif = getModif(value);
     modif = modif >= 0 ? '+' + modif : modif;
-    statsSpan[stat].innerText = max(value, 0) + ' (' + modif + ')';
+    statsSpan[stat].innerText = Math.max(value, 0) + ' (' + modif + ')';
 }
 
 function getModif(stat) {
