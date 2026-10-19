@@ -13,7 +13,7 @@ const statsSpan = {
 const writingTime = 30; // [ms/char]
 
 // Initialisation
-let currentNoeud = localStorage.getItem('currentNoeud') ?? 'start';
+let currentnode = localStorage.getItem('currentnode') ?? 'start';
 const historique = JSON.parse(localStorage.getItem('historique')) ?? [];
 const statsParDefaut = {
     po: 15,
@@ -31,17 +31,17 @@ const stats = {
 Object.keys(statsParDefaut).forEach(stat => updateStat(stat, stats[stat]));
 
 crossBtn.addEventListener('click', () => {
-    localStorage.removeItem('currentNoeud');
+    localStorage.removeItem('currentnode');
     localStorage.removeItem('historique');
     localStorage.removeItem('stats');
 })
 
-// Obtenir les noeuds a partie de noeuds.json
-let noeuds = {};
-fetch('./noeuds.json')
+// Obtenir les nodes a partie de nodes.json
+let nodes = {};
+fetch('./nodes.json')
     .then(reponse => reponse.json())
     .then(donnees => {
-        noeuds = donnees;
+        nodes = donnees;
         startGame();
     })
     .catch(error => {
@@ -76,16 +76,16 @@ function propose(text, next) {
     btn.innerText = text;
     btn.addEventListener('click', () => {
         affichePlayerMessage(text);
-        resolveNoeud(next);
+        resolvenode(next);
     });
     footer.appendChild(btn);
 }
 
-function resolveNoeud(noeudName, restaurer = false) {
-    const noeud = noeuds[noeudName];
+function resolvenode(nodeName, restaurer = false) {
+    const node = nodes[nodeName];
     footer.innerHTML = '';
     if (restaurer) {
-        noeud.choix.forEach(choix => {
+        node.choix.forEach(choix => {
             propose(choix.text, choix.next);
         });
         return;
@@ -97,23 +97,23 @@ function resolveNoeud(noeudName, restaurer = false) {
     main.appendChild(waitingP)
     setTimeout(() => {
         main.removeChild(waitingP);
-        sendMessage(noeud.text);
+        sendMessage(node.text);
         setTimeout(() => {
-            if (noeud.stats) {
-                appliquerModificationsStats(noeud.stats);
+            if (node.stats) {
+                appliquerModificationsStats(node.stats);
             }
-            noeud.choix.forEach(choix => {
+            node.choix.forEach(choix => {
                 propose(choix.text, choix.next);
             });
-            save(noeudName);
-        }, noeud.text.length * writingTime);
-    }, noeud.text.length * writingTime);
+            save(nodeName);
+        }, node.text.length * writingTime);
+    }, node.text.length * writingTime);
 }
 
 function appliquerModificationsStats(modifications) {
     Object.entries(modifications).forEach(([stat, modification]) => {
         if (!Object.prototype.hasOwnProperty.call(statsParDefaut, stat)) {
-            console.error(`Stat inconnue dans noeuds.json : ${stat}`);
+            console.error(`Stat inconnue dans nodes.json : ${stat}`);
             return;
         }
         if (typeof modification === 'number' && Number.isFinite(modification)) {
@@ -130,7 +130,7 @@ function appliquerModificationsStats(modifications) {
             updateStat(stat, stats[stat] + modification.add);
             return;
         }
-        console.error(`Modification invalide pour la stat ${stat} dans noeuds.json`);
+        console.error(`Modification invalide pour la stat ${stat} dans nodes.json`);
     });
 }
 
@@ -160,11 +160,11 @@ function startGame() {
         p.classList.add(message.from === 'player' ? 'player-text' : 'MJ-text');
         main.appendChild(p);
     });
-    resolveNoeud(currentNoeud, localStorage.getItem('currentNoeud') !== null);
+    resolvenode(currentnode, localStorage.getItem('currentnode') !== null);
 }
 
-function save(currentNoeud) {
-    localStorage.setItem('currentNoeud', currentNoeud);
+function save(currentnode) {
+    localStorage.setItem('currentnode', currentnode);
     localStorage.setItem('historique', JSON.stringify(historique));
     localStorage.setItem('stats', JSON.stringify(stats));
 }
