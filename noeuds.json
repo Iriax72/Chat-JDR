@@ -4,14 +4,23 @@
         "choix": [
             { "text": "ok", "next": "plus d'argent" },
             { "text": "jamais !", "next": "defaite" }
-        ]
+        ],
+        "stats": {
+            "hp": 20,
+            "po": 5,
+            "frc": 8,
+            "sag": 8
+        }
     },
     "plus d'argent": {
         "text": "Quel lache, vous n'avez plus un rond",
         "choix": [
             { "text": "continuer son chemin", "next": "TODO" },
             { "text": "Abandonner", "next": "start" }
-        ]
+        ],
+        "stats": {
+            "po": { "add": -20 }
+        }
     },
     "defaite": {
         "text": "Le roi mage se jette sur vous.\nVotre derniere vision aura été sa dague qu'il sortait a peine de son fourreau",

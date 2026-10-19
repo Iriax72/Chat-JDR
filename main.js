@@ -3,14 +3,11 @@ const crossBtn = document.querySelector('#cross-btn');
 const main = document.querySelector('main');
 const footer = document.querySelector('footer');
 const statsSpan = {
+    po: document.querySelector('#po'),
     hp: document.querySelector('#hp'),
     frc: document.querySelector('#frc'),
-    dext: document.querySelector('#dext'),
-    constit: document.querySelector('#const'),
     sag: document.querySelector('#sag'),
-    intel: document.querySelector('#int'),
-    char: document.querySelector('#char')
-}
+};
 
 // Valeurs arbitraires
 const writingTime = 30; // [ms/char]
@@ -19,13 +16,10 @@ const writingTime = 30; // [ms/char]
 let currentNoeud = localStorage.getItem('currentNoeud') ?? 'start';
 const historique = JSON.parse(localStorage.getItem('historique')) ?? [];
 const statsParDefaut = {
+    po: 15,
     hp: 20,
-    frc: 8,
-    dext: 13,
-    char: 12,
-    intel: 15,
-    sag: 14,
-    constit: 10
+    frc: 10,
+    sag: 10,
 };
 const statsStockees = JSON.parse(localStorage.getItem('stats'));
 const stats = {
@@ -87,34 +81,72 @@ function propose(text, next) {
     footer.appendChild(btn);
 }
 
-function resolveNoeud(noeudName) {
-    save(noeudName);
+function resolveNoeud(noeudName, restaurer = false) {
     const noeud = noeuds[noeudName];
+    footer.innerHTML = '';
+    if (restaurer) {
+        noeud.choix.forEach(choix => {
+            propose(choix.text, choix.next);
+        });
+        return;
+    }
+
     const waitingP = document.createElement('p');
     waitingP.classList.add('MJ-text');
     waitingP.innerText = '...';
     main.appendChild(waitingP)
-    footer.innerHTML = '';
     setTimeout(() => {
         main.removeChild(waitingP);
         sendMessage(noeud.text);
         setTimeout(() => {
+            if (noeud.stats) {
+                appliquerModificationsStats(noeud.stats);
+            }
             noeud.choix.forEach(choix => {
                 propose(choix.text, choix.next);
             });
+            save(noeudName);
         }, noeud.text.length * writingTime);
     }, noeud.text.length * writingTime);
+}
+
+function appliquerModificationsStats(modifications) {
+    Object.entries(modifications).forEach(([stat, modification]) => {
+        if (!Object.prototype.hasOwnProperty.call(statsParDefaut, stat)) {
+            console.error(`Stat inconnue dans noeuds.json : ${stat}`);
+            return;
+        }
+        if (typeof modification === 'number' && Number.isFinite(modification)) {
+            updateStat(stat, modification);
+            return;
+        }
+        if (
+            modification &&
+            typeof modification === 'object' &&
+            !Array.isArray(modification) &&
+            typeof modification.add === 'number' &&
+            Number.isFinite(modification.add)
+        ) {
+            updateStat(stat, stats[stat] + modification.add);
+            return;
+        }
+        console.error(`Modification invalide pour la stat ${stat} dans noeuds.json`);
+    });
 }
 
 function updateStat(stat, value) {
     stats[stat] = value;
     if (stat === 'hp') {
-        statsSpan[stat].innerText = value + '/20';
+        statsSpan[stat].innerText = max(value, 0) + '/20';
+        return;
+    }
+    if (stat === 'po') {
+        statsSpan[stat].innerText = max(value, 0);
         return;
     }
     let modif = getModif(value);
     modif = modif >= 0 ? '+' + modif : modif;
-    statsSpan[stat].innerText = value + ' (' + modif + ')';
+    statsSpan[stat].innerText = max(value, 0) + ' (' + modif + ')';
 }
 
 function getModif(stat) {
@@ -128,7 +160,7 @@ function startGame() {
         p.classList.add(message.from === 'player' ? 'player-text' : 'MJ-text');
         main.appendChild(p);
     });
-    resolveNoeud(currentNoeud);
+    resolveNoeud(currentNoeud, localStorage.getItem('currentNoeud') !== null);
 }
 
 function save(currentNoeud) {
