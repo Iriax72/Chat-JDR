@@ -16,23 +16,38 @@ header, main, footer {
 }
 
 header {
-    height: 100px;
-    flex-grow: 0;
-    padding: 5px;
-    padding-top: 12px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+        "head close"
+        "stats stats";
+    align-items: center;
+    gap: 8px;
+    flex: 0 0 auto;
+    padding: 12px;
     background-color: #234;
     color: antiquewhite;
 }
 
-header>div {
+#head {
+    grid-area: head;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    gap: 12px;
+    min-width: 0;
 }
 
 #stats {
-    height: 30px;
+    grid-area: stats;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 12px;
+}
+
+#stats p {
+    margin: 0;
 }
 
 header img {
@@ -49,10 +64,17 @@ header .text {
 }
 
 header a {
+    grid-area: close;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 50px;
     border-radius: 50%;
     background-color: #c43;
     width: 50px;
     height: 50px;
+    color: antiquewhite;
+    text-decoration: none;
 }
 
 main {
