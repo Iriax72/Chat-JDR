@@ -2,6 +2,15 @@
 const crossBtn = document.querySelector('#cross-btn');
 const main = document.querySelector('main');
 const footer = document.querySelector('footer');
+const statsSpan = {
+    hp: document.querySelector('#hp'),
+    frc: document.querySelector('#frc'),
+    dext: document.querySelector('#dext'),
+    constit: document.querySelector('#const'),
+    sag: document.querySelector('#sag'),
+    intel: document.querySelector('#int'),
+    char: document.querySelector('#char')
+}
 
 // Valeurs arbitraires
 const writingTime = 30; // [ms/char]
@@ -9,15 +18,23 @@ const writingTime = 30; // [ms/char]
 // Initialisation
 let currentNoeud = localStorage.getItem('currentNoeud') ?? 'start';
 const historique = JSON.parse(localStorage.getItem('historique')) ?? [];
-const stats = JSON.parse(localStorage.getItem('stats')) ?? {
+const statsParDefaut = {
     hp: 20,
-    frc: 9,
-    dext: 16,
+    frc: 8,
+    dext: 13,
     char: 12,
     intel: 15,
     sag: 14,
-    constit: 10,
+    constit: 10
 };
+const statsStockees = JSON.parse(localStorage.getItem('stats'));
+const stats = {
+    ...statsParDefaut,
+    ...(statsStockees && typeof statsStockees === 'object' && !Array.isArray(statsStockees)
+        ? statsStockees
+        : {})
+};
+Object.keys(statsParDefaut).forEach(stat => updateStat(stat, stats[stat]));
 
 crossBtn.addEventListener('click', () => {
     localStorage.removeItem('currentNoeud');
@@ -87,6 +104,21 @@ function resolveNoeud(noeudName) {
             });
         }, noeud.text.length * writingTime);
     }, noeud.text.length * writingTime);
+}
+
+function updateStat(stat, value) {
+    stats[stat] = value;
+    if (stat === 'hp') {
+        statsSpan[stat].innerText = value + '/20';
+        return;
+    }
+    let modif = getModif(value);
+    modif = modif >= 0 ? '+' + modif : modif;
+    statsSpan[stat].innerText = value + ' (' + modif + ')';
+}
+
+function getModif(stat) {
+    return Math.floor((stat-10) / 2);
 }
 
 function startGame() {
