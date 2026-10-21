@@ -118,7 +118,9 @@ function resolvenode(nodeName, restaurer = false) {
     footer.innerHTML = '';
     if (restaurer) {
         node.choix.forEach(choix => {
-            propose(choix.text, choix.next);
+            if (condition_ok(choix)) {
+                propose(choix.text, choix.next);
+            }
         });
         return;
     }
@@ -138,11 +140,24 @@ function resolvenode(nodeName, restaurer = false) {
                 appliquerModifInventory(node.inventory);
             }
             node.choix.forEach(choix => {
-                propose(choix.text, choix.next);
+                if (condition_ok(choix)) {
+                    propose(choix.text, choix.next);
+                }
             });
             save(nodeName);
         }, node.text.length * writingTime);
     }, node.text.length * writingTime);
+}
+
+function condition_ok(choix) {
+    if (!choix.condition) return true;
+    return choix.condition.every(cond => {
+        if (Object.prototype.hasOwnProperty.call(cond, 'inventory')) {
+            return inventory.includes(cond.inventory);
+        }
+        console.error(`Condition inconnue dans nodes.json`);
+        return false;
+    });
 }
 
 function appliquerModificationsStats(modifications) {

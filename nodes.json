@@ -34,12 +34,27 @@
     "continuer son chemin": {
         "text": "Alors que vous vous baladiez dans la foret, vous tomber sur un groupe d'orks trapus n'ayant qu'une envie: vous dévorer!\n\"Mhhh voila de la bonne viande\"\nComment réagissez-vous sachant que vous vener de trouver une épée par terre ?",
         "choix": [
-            { "text": "Je prends mes jambes à mon cou! Ils sont si grand" },
-            { "text": "Je fonce! Il ne pourront pas résister à ma fureur" },
-            { "text": "Je leur propose de chasser pour eux" }
+            { "text": "Je prends mes jambes à mon cou! Ils sont si grand", "next": "porte" },
+            { "text": "Je fonce! Il ne pourront pas résister à ma fureur", "next": "clé" },
+            { "text": "Je leur propose de chasser pour eux", "next": "porte" }
         ],
         "inventory": [
             {"give": "🗡️ épée"}
+        ]
+    },
+    "clé": {
+        "text": "Apres moult coups de fers, le dernier ennemi finit par tomber. En le fouillant, vous trouvez sur lui une clé",
+        "choix": [{ "text": "Je continue mon chemin", "next": "porte"}],
+        "inventory": [{"give": "🔑 clé"}]
+    },
+    "porte": {
+        "text": "Apres une petite course, vous tombez nez-à-nez avec une porte close",
+        "choix": [
+            {"text": "Tant pis !"},
+            {"text": "Je tente de la forcer"},
+            {"text": "J'essaie de l'ouvrir avec ma clé", "next": "TODO", "condition": [
+                {"inventory": "🔑 clé"}
+            ]}
         ]
     }
 }
