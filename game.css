@@ -50,6 +50,16 @@ header {
     margin: 0;
 }
 
+#stats button {
+    width: 20px;
+    height: 20px;
+    background-color: antiquewhite;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 header img {
     width: 50px;
     height: 50px;
@@ -63,8 +73,11 @@ header .text {
     justify-content: center;
 }
 
-header a {
+header #head .cross-btn {
     grid-area: close;
+}
+
+.cross-btn {
     display: flex;
     align-items: center;
     justify-content: center;

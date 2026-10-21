@@ -1,5 +1,5 @@
 // References DOM
-const crossBtn = document.querySelector('#cross-btn');
+const crossBtn = document.querySelector('.cross-btn');
 const main = document.querySelector('main');
 const footer = document.querySelector('footer');
 const statsSpan = {
@@ -8,6 +8,7 @@ const statsSpan = {
     frc: document.querySelector('#frc'),
     sag: document.querySelector('#sag'),
 };
+const inventoryBtn = document.querySelector('#inventory');
 
 // Valeurs arbitraires
 const writingTime = 30; // [ms/char]
@@ -15,6 +16,8 @@ const writingTime = 30; // [ms/char]
 // Initialisation
 let currentnode = localStorage.getItem('currentnode') ?? 'start';
 const historique = JSON.parse(localStorage.getItem('historique')) ?? [];
+const inventory = JSON.parse(localStorage.getItem('inventory')) ?? [];
+
 const statsParDefaut = {
     po: 15,
     hp: 20,
@@ -33,10 +36,12 @@ Object.keys(statsParDefaut).forEach(stat => updateStat(stat, stats[stat]));
 crossBtn.addEventListener('click', () => {
     localStorage.removeItem('currentnode');
     localStorage.removeItem('historique');
+    localStorage.removeItem('inventory');
     localStorage.removeItem('stats');
 })
 
 // Obtenir les nodes a partie de nodes.json
+// Et lancer la partie
 let nodes = {};
 fetch('./nodes.json')
     .then(reponse => reponse.json())
@@ -49,6 +54,33 @@ fetch('./nodes.json')
         alert("Impossible de charger le jeu ! Vérifier le fichier JSON. (" + error + ')');
     });
 
+// Event lisiteners
+inventoryBtn.addEventListener('click', () => {
+    openInventory();
+})
+
+// Utilitaires
+function openInventory() {
+    const d = document.createElement('div');
+    d.classList.add('inventory');
+    inventory.forEach(obj => {
+        const s = document.createElement('span');
+        s.classList.add('inventory-obj');
+        s.innerText = obj;
+        d.appendChild(s);
+    });
+    if (d.innerHTML === '') {
+        d.innerText = "L'inventaire est vide";
+    }
+    const btn = document.createElement('button');
+    btn.classList.add('cross-btn');
+    btn.innerText = '(X)';
+    btn.addEventListener('click', () => {
+        document.body.removeChild(d);
+    });
+    d.appendChild(btn);
+    document.body.appendChild(d);
+}
 
 function affichePlayerMessage(message) {
     historique.push({from: 'player', text: message});
@@ -102,6 +134,9 @@ function resolvenode(nodeName, restaurer = false) {
             if (node.stats) {
                 appliquerModificationsStats(node.stats);
             }
+            if (node.inventory) {
+                appliquerModifInventory(node.inventory);
+            }
             node.choix.forEach(choix => {
                 propose(choix.text, choix.next);
             });
@@ -131,6 +166,27 @@ function appliquerModificationsStats(modifications) {
             return;
         }
         console.error(`Modification invalide pour la stat ${stat} dans nodes.json`);
+    });
+}
+
+function appliquerModifInventory(modifs) {
+    modifs.forEach(modification => {
+        Object.entries(modification).forEach(([action, objet]) => {
+            if (action === 'give') {
+                if (!inventory.includes(objet)) {
+                    inventory.push(objet);
+                }
+                return;
+            }
+            if (action === 'remove') {
+                const index = inventory.indexOf(objet);
+                if (index !== -1) {
+                    inventory.splice(index, 1);
+                }
+                return;
+            }
+            console.error(`Action de modification de l'inventaire inconnue : ${action}`);
+        });
     });
 }
 
@@ -166,5 +222,6 @@ function startGame() {
 function save(currentnode) {
     localStorage.setItem('currentnode', currentnode);
     localStorage.setItem('historique', JSON.stringify(historique));
+    localStorage.setItem('inventory', JSON.stringify(inventory));
     localStorage.setItem('stats', JSON.stringify(stats));
 }

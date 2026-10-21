@@ -15,7 +15,7 @@
     "plus d'argent": {
         "text": "Quel lache, vous n'avez plus un rond",
         "choix": [
-            { "text": "continuer son chemin", "next": "TODO" },
+            { "text": "continuer son chemin", "next": "continuer son chemin" },
             { "text": "Abandonner", "next": "start" }
         ],
         "stats": {
@@ -26,14 +26,20 @@
         "text": "Le roi mage se jette sur vous.\nVotre derniere vision aura été sa dague qu'il sortait a peine de son fourreau",
         "choix": [
             { "text": "Recommencer", "next": "start" }
+        ],
+        "inventory": [
+            {"remove": "🗡️ épée"}
         ]
     },
     "continuer son chemin": {
-        "text": "Alors que vous vous baladiez dans la foret, vous tomber sur un groupe d'orks trapus n'ayant qu'une envie: vous dévorer!\n\"Mhhh voila de la bonne viande\"\nComment réagissez-vous ?",
+        "text": "Alors que vous vous baladiez dans la foret, vous tomber sur un groupe d'orks trapus n'ayant qu'une envie: vous dévorer!\n\"Mhhh voila de la bonne viande\"\nComment réagissez-vous sachant que vous vener de trouver une épée par terre ?",
         "choix": [
             { "text": "Je prends mes jambes à mon cou! Ils sont si grand" },
             { "text": "Je fonce! Il ne pourront pas résister à ma fureur" },
             { "text": "Je leur propose de chasser pour eux" }
+        ],
+        "inventory": [
+            {"give": "🗡️ épée"}
         ]
     }
 }
