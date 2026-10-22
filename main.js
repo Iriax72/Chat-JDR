@@ -50,7 +50,13 @@ fetch('./nodes.json')
     .then(reponse => reponse.json())
     .then(donnees => {
         nodes = donnees;
-        startGame();
+        historique.forEach(message => {
+            const p = document.createElement('p');
+            p.innerText = message.text;
+            p.classList.add(message.from === 'player' ? 'player-text' : 'MJ-text');
+            main.appendChild(p);
+        });
+        resolvenode(currentnode, localStorage.getItem('currentnode') !== null)
     })
     .catch(error => {
         console.error("Erreur de chargement :", error);
@@ -88,24 +94,31 @@ function openPopup(listContent, popupName) {
     document.body.appendChild(d);
 }
 
-function affichePlayerMessage(message) {
+/*
+function afficheMessage(message, className) {
     historique.push({from: 'player', text: message});
     const p = document.createElement('p');
-    p.classList.add('player-text');
+    p.classList.add(className);
     p.innerText = message;
     main.appendChild(p);
 }
+*/
 
-function sendMessage(message) {
-    historique.push({from: 'MJ', text: message});
+function sendMessage(message, from, sendEffect = false) {
+    historique.push({from: from, text: message});
     const p = document.createElement('p');
-    p.classList.add('MJ-text');
-    p.innerText = "";
-    main.appendChild(p);
-    for (let i = 0; i < message.length; i++) {
-        setTimeout(() => {
-            p.innerText = message.slice(0, i+1);
-        }, i * writingTime);
+    p.classList.add(from+'-text');
+    if (sendEffect) {
+        p.innerText = "";
+        main.appendChild(p);
+        for (let i = 0; i < message.length; i++) {
+            setTimeout(() => {
+                p.innerText = message.slice(0, i+1);
+            }, i * writingTime);
+        }
+    } else {
+        p.innerText = message;
+        main.appendChild(p);
     }
 }
 
@@ -113,7 +126,7 @@ function propose(text, next) {
     const btn = document.createElement('button');
     btn.innerText = text;
     btn.addEventListener('click', () => {
-        affichePlayerMessage(text);
+        sendMessage(text, 'player');
         resolvenode(next);
     });
     footer.appendChild(btn);
@@ -137,7 +150,7 @@ function resolvenode(nodeName, restaurer = false) {
     main.appendChild(waitingP)
     setTimeout(() => {
         main.removeChild(waitingP);
-        sendMessage(node.text);
+        sendMessage(node.text, 'MJ', true);
         setTimeout(() => {
             if (node.stats) {
                 appliquerModificationsStats(node.stats);
@@ -237,6 +250,7 @@ function getModif(stat) {
     return Math.floor((stat-10) / 2);
 }
 
+/*
 function startGame() {
     historique.forEach(message => {
         const p = document.createElement('p');
@@ -246,6 +260,7 @@ function startGame() {
     });
     resolvenode(currentnode, localStorage.getItem('currentnode') !== null);
 }
+*/
 
 function save(currentnode) {
     localStorage.setItem('currentnode', currentnode);
