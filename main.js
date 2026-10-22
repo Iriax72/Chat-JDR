@@ -85,7 +85,7 @@ function openPopup(listContent, popupName) {
     d.classList.add('popup');
     listContent.forEach(obj => {
         const s = document.createElement('span');
-        s.innerHTML = obj;
+        s.appendChild(obj);
         d.appendChild(s);
     });
     if (d.innerHTML === '') {
