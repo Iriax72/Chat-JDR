@@ -76,7 +76,7 @@ journalBtn.addEventListener('click', () => {
 });
 
 mapBtn.addEventListener('click', () => {
-    openPopup(mapImg, 'map');
+    openPopup([mapImg], 'map');
 });
 
 // Utilitaires
@@ -85,7 +85,7 @@ function openPopup(listContent, popupName) {
     d.classList.add('popup');
     listContent.forEach(obj => {
         const s = document.createElement('span');
-        s.innerText = obj;
+        s.innerHTML = obj;
         d.appendChild(s);
     });
     if (d.innerHTML === '') {
