@@ -94,16 +94,6 @@ function openPopup(listContent, popupName) {
     document.body.appendChild(d);
 }
 
-/*
-function afficheMessage(message, className) {
-    historique.push({from: 'player', text: message});
-    const p = document.createElement('p');
-    p.classList.add(className);
-    p.innerText = message;
-    main.appendChild(p);
-}
-*/
-
 function sendMessage(message, from, sendEffect = false) {
     historique.push({from: from, text: message});
     const p = document.createElement('p');
@@ -249,18 +239,6 @@ function updateStat(stat, value) {
 function getModif(stat) {
     return Math.floor((stat-10) / 2);
 }
-
-/*
-function startGame() {
-    historique.forEach(message => {
-        const p = document.createElement('p');
-        p.innerText = message.text;
-        p.classList.add(message.from === 'player' ? 'player-text' : 'MJ-text');
-        main.appendChild(p);
-    });
-    resolvenode(currentnode, localStorage.getItem('currentnode') !== null);
-}
-*/
 
 function save(currentnode) {
     localStorage.setItem('currentnode', currentnode);
