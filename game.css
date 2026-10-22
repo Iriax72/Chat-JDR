@@ -140,7 +140,7 @@ footer button {
     height: 50px
 }
 
-.inventory {
+.popup {
     width: 100%;
     height: 100%;
     margin: 30px;
@@ -158,7 +158,7 @@ footer button {
     border-radius: 6px;
 }
 
-.inventory .cross-btn {
+.popup .cross-btn {
     position: absolute;
     top: 20px;
     right: 20px;

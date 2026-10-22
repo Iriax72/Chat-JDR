@@ -1,9 +1,11 @@
 {
     "start": {
-        "text": "Heyhey je suis le roi mage, donne moi ta moula",
+        "text": "L'auberge du Dragon d'or est le lieu de prédilexion des marchants, explorateurs et voyageurs de tous types. Reliant la cité de Westelle au chateau d'Estillon, c'est un point stratégique pour commercer et faire de bons contacts.",
         "choix": [
-            { "text": "ok", "next": "plus d'argent" },
-            { "text": "jamais !", "next": "defaite" }
+            { "text": "Je vais voir le barman", "next": "Barman" },
+            { "text": "Je me ballade parmis les tables", "next": "PNJ-1" },
+            { "text": "J'engage la conversation avec l'homme à ma gauche", "next": "PNJ-2" },
+            { "text": "Je vais prendre l'air sur la terrasse", "next": "PNJ-3" }
         ],
         "stats": {
             "hp": 20,
@@ -12,49 +14,69 @@
             "sag": 8
         }
     },
-    "plus d'argent": {
-        "text": "Quel lache, vous n'avez plus un rond",
+    "Barman": {
+        "text": "Bonsoir voyageur, qu'est ce que je vous sers ?",
         "choix": [
-            { "text": "continuer son chemin", "next": "continuer son chemin" },
-            { "text": "Abandonner", "next": "start" }
+            { "text": "J'ai trop bu pour aujourd'hui, montrez moi la sortie", "next": "Dehors" },
+            { "text": "Une bière mon brave !", "next": "Biere" }
+        ]
+    },
+    "Biere": {
+        "text": "Vous vous régalez, bon passons aux choses serieuses",
+        "choix": [
+            { "text": "continuer", "next": "start" }
         ],
         "stats": {
-            "po": { "add": -20 }
+            "po": {"add": -3}
         }
     },
-    "defaite": {
-        "text": "Le roi mage se jette sur vous.\nVotre derniere vision aura été sa dague qu'il sortait a peine de son fourreau",
+    "PNJ-1": {
+        "text": "Parmis les clients, une jeune femme vous interpelle: \n\"Hey, vous qui avez l'air d'un grand chevalier, me rendriez-vous un service ?\"",
         "choix": [
-            { "text": "Recommencer", "next": "start" }
-        ],
-        "inventory": [
-            {"remove": "🗡️ épée"}
+            { "text": "Bien volontier gente dame", "next": "Quete PNJ-1" },
+            { "text": "Désolé, pas aujourd'hui, je suis trop saoul", "next": "start" }
         ]
     },
-    "continuer son chemin": {
-        "text": "Alors que vous vous baladiez dans la foret, vous tomber sur un groupe d'orks trapus n'ayant qu'une envie: vous dévorer!\n\"Mhhh voila de la bonne viande\"\nComment réagissez-vous sachant que vous vener de trouver une épée par terre ?",
+    "Quete PNJ-1": {
+        "text": "Oh j'étais sûre qu'un sire comme vous n'y manquerait pas,\nJe ne retrouve plus la tiare que m'avait offerte ma mère. Elle se transmet de mère en fille depuis des générations, c'est une véritable catastrophe. Pourriez-vous me la retrouver ?",
         "choix": [
-            { "text": "Je prends mes jambes à mon cou! Ils sont si grand", "next": "porte" },
-            { "text": "Je fonce! Il ne pourront pas résister à ma fureur", "next": "clé" },
-            { "text": "Je leur propose de chasser pour eux", "next": "porte" }
+            { "text": "Vous avez ma parole. Dans 7 levés de soleil, vous aurez retrouvé votre tiare", "next": "start" }
         ],
-        "inventory": [
-            {"give": "🗡️ épée"}
+        "journal": [{ "give": "Retrouver la tiare perdue" }]
+    },
+    "PNJ-2": {
+        "text": "Quelle mauvaise idée! cet homme est completement ivre.\n\"Euhh j'suis Sir de Chateaugrand... Noble ch'valier de la maison... engagé dans la lute contre les goblins. Mais j'suis pas en état de m'battre là. Pourrier vous en descendre quelqu's'uns pour moi ?\"",
+        "choix": [
+            { "text": "Avec honneur !", "next": "Quete PNJ-2" },
+            { "text": "Sans façons", "next": "start" }
         ]
     },
-    "clé": {
-        "text": "Apres moult coups de fers, le dernier ennemi finit par tomber. En le fouillant, vous trouvez sur lui une clé",
-        "choix": [{ "text": "Je continue mon chemin", "next": "porte"}],
-        "inventory": [{"give": "🔑 clé"}]
+    "Quete PNJ-2": {
+        "text": "Merci mon gars",
+        "choix": [{ "text": "continuer", "next": "start" }],
+        "journal": [{ "give": "Abatre 10 goblins" }]
     },
-    "porte": {
-        "text": "Apres une petite course, vous tombez nez-à-nez avec une porte close",
+    "PNJ-3": {
+        "text": "Brr il fait froid. Un jeune garçons vous aborde:\n\"Bonjour monsieur, vous ête un explorateur ? J'aurais besoin que quelqu'un remplisse ma carte pour en devnir un moi aussi\"",
         "choix": [
-            {"text": "Tant pis !"},
-            {"text": "Je tente de la forcer"},
-            {"text": "J'essaie de l'ouvrir avec ma clé", "next": "TODO", "condition": [
-                {"inventory": "🔑 clé"}
-            ]}
+            { "text": "Bien sur gamin, je vais le faire", "next": "Quete PNJ-3" },
+            { "text": "Désolé, j'ai la flemme", "next": "start" }
+        ]
+    },
+    "Quete PNJ-3": {
+        "text": "Merci merci, merci ! La voila",
+        "choix": [{ "text": "Je prends la carte", "next": "start" }],
+        "inventory": [{ "give": "🗺️" }],
+        "journal":  [{ "give": "Remplir la carte de petit Jean"  }]
+    },
+
+    "Dehors": {
+        "text": "Une légère brise parfume l'air, ça sent l'aventure ! On dit qu'une vaste forêt s'étend sur les pleines du Nord. À l'Ouest vous attend la grande cité de Westelle. C'est de l'Est que vous venez, vous aviez croisé le fort d'Estillon. Quant au Sud, personne n'y est jamais allé, ou du moins n'en est revenu.",
+        "choix": [
+            { "text": "Je pars au Nord", "next": "TODO" },
+            { "text": "Allons pour Westelle", "next": "TODO" },
+            { "text": "Estillon semble plus accuillant", "next": "TODO" },
+            { "text": "Aventurier dans l'âme, pour le Sud !", "next": "TODO" }
         ]
     }
 }

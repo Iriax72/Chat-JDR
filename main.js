@@ -9,6 +9,7 @@ const statsSpan = {
     sag: document.querySelector('#sag'),
 };
 const inventoryBtn = document.querySelector('#inventory');
+const journalBtn = document.querySelector('#journal');
 
 // Valeurs arbitraires
 const writingTime = 30; // [ms/char]
@@ -16,7 +17,8 @@ const writingTime = 30; // [ms/char]
 // Initialisation
 let currentnode = localStorage.getItem('currentnode') ?? 'start';
 const historique = JSON.parse(localStorage.getItem('historique')) ?? [];
-const inventory = JSON.parse(localStorage.getItem('inventory')) ?? [];
+const inventory = JSON.parse(localStorage.getItem('inventory')) ?? ['🗡️', '📝', '🧳'];
+const journal = JSON.parse(localStorage.getItem('journal')) ?? [];
 
 const statsParDefaut = {
     po: 15,
@@ -37,6 +39,7 @@ crossBtn.addEventListener('click', () => {
     localStorage.removeItem('currentnode');
     localStorage.removeItem('historique');
     localStorage.removeItem('inventory');
+    localStorage.removeItem('journal');
     localStorage.removeItem('stats');
 })
 
@@ -56,21 +59,24 @@ fetch('./nodes.json')
 
 // Event lisiteners
 inventoryBtn.addEventListener('click', () => {
-    openInventory();
-})
+    openPopup(inventory, 'inventaire');
+});
+
+journalBtn.addEventListener('click', () => {
+    openPopup(journal, 'journal');
+});
 
 // Utilitaires
-function openInventory() {
+function openPopup(listContent, popupName) {
     const d = document.createElement('div');
-    d.classList.add('inventory');
-    inventory.forEach(obj => {
+    d.classList.add('popup');
+    listContent.forEach(obj => {
         const s = document.createElement('span');
-        s.classList.add('inventory-obj');
         s.innerText = obj;
         d.appendChild(s);
     });
     if (d.innerHTML === '') {
-        d.innerText = "L'inventaire est vide";
+        d.innerText = "Le " + popupName + " est vide";
     }
     const btn = document.createElement('button');
     btn.classList.add('cross-btn');
@@ -137,7 +143,10 @@ function resolvenode(nodeName, restaurer = false) {
                 appliquerModificationsStats(node.stats);
             }
             if (node.inventory) {
-                appliquerModifInventory(node.inventory);
+                appliquerModif(node.inventory, inventory);
+            }
+            if (node.journal) {
+                appliquerModif(node.journal, journal);
             }
             node.choix.forEach(choix => {
                 if (condition_ok(choix)) {
@@ -154,6 +163,9 @@ function condition_ok(choix) {
     return choix.condition.every(cond => {
         if (Object.prototype.hasOwnProperty.call(cond, 'inventory')) {
             return inventory.includes(cond.inventory);
+        }
+        if (Object.prototype.hasOwnProperty.call(cond, 'journal')) {
+            return journal.includes(cond.journal);
         }
         console.error(`Condition inconnue dans nodes.json`);
         return false;
@@ -184,21 +196,22 @@ function appliquerModificationsStats(modifications) {
     });
 }
 
-function appliquerModifInventory(modifs) {
+function appliquerModif(modifs, list) {
+    const ret = list;
     modifs.forEach(modification => {
         Object.entries(modification).forEach(([action, objet]) => {
             if (action === 'give') {
-                if (!inventory.includes(objet)) {
-                    inventory.push(objet);
+                if (!ret.includes(objet)) {
+                    ret.push(objet);
                 }
-                return;
+                return ret;
             }
             if (action === 'remove') {
-                const index = inventory.indexOf(objet);
+                const index = ret.indexOf(objet);
                 if (index !== -1) {
-                    inventory.splice(index, 1);
+                    ret.splice(index, 1);
                 }
-                return;
+                return ret;
             }
             console.error(`Action de modification de l'inventaire inconnue : ${action}`);
         });
@@ -238,5 +251,6 @@ function save(currentnode) {
     localStorage.setItem('currentnode', currentnode);
     localStorage.setItem('historique', JSON.stringify(historique));
     localStorage.setItem('inventory', JSON.stringify(inventory));
+    localStorage.setItem('journal', JSON.stringify(journal));
     localStorage.setItem('stats', JSON.stringify(stats));
 }
