@@ -85,10 +85,10 @@ function openPopup(listContent, popupName) {
     d.classList.add('popup');
     listContent.forEach(obj => {
         const s = document.createElement('span');
-        if (typeof obj === String) {
-            s.innerText = obj;
-        } else if (typeof obj === HTMLElement) {
-            s.appendChild(obj);
+        if (typeof obj === 'string') {
+            s.textContent = obj;
+        } else if (obj instanceof HTMLElement) {
+            s.appendChild(obj.cloneNode(true));
         } else {
             console.error('type de donnée inaffichable');
         }
