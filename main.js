@@ -10,6 +10,9 @@ const statsSpan = {
 };
 const inventoryBtn = document.querySelector('#inventory');
 const journalBtn = document.querySelector('#journal');
+const mapBtn = document.querySelector('#map');
+
+const mapImg = document.querySelector('#map-img');
 
 // Valeurs arbitraires
 const writingTime = 30; // [ms/char]
@@ -70,6 +73,10 @@ inventoryBtn.addEventListener('click', () => {
 
 journalBtn.addEventListener('click', () => {
     openPopup(journal, 'journal');
+});
+
+mapBtn.addEventListener('click', () => {
+    openPopup(mapImage, 'map');
 });
 
 // Utilitaires
