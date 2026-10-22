@@ -213,6 +213,9 @@ function appliquerModif(modifs, list) {
             if (action === 'give') {
                 if (!ret.includes(objet)) {
                     ret.push(objet);
+                    if (objet === '🗺️') {
+                        mapBtn.classList.remove('hidden');
+                    }
                 }
                 return ret;
             }
@@ -220,6 +223,9 @@ function appliquerModif(modifs, list) {
                 const index = ret.indexOf(objet);
                 if (index !== -1) {
                     ret.splice(index, 1);
+                    if (objet === '🗺️') {
+                        mapBtn.classList.add('hidden');
+                    }
                 }
                 return ret;
             }
