@@ -85,7 +85,13 @@ function openPopup(listContent, popupName) {
     d.classList.add('popup');
     listContent.forEach(obj => {
         const s = document.createElement('span');
-        s.appendChild(obj);
+        if (typeof obj === String) {
+            s.innerText = obj;
+        } else if (typeof obj === HTMLElement) {
+            s.appendChild(obj);
+        } else {
+            console.error('type de donnée inaffichable');
+        }
         d.appendChild(s);
     });
     if (d.innerHTML === '') {
