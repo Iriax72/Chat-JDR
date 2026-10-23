@@ -194,15 +194,13 @@ function resolvenode(nodeName, restaurer = false) {
 }
 
 function playRollAnim(roll) {
-    const rdm = Math.random();
-    alert(String(rdm) + String(roll.type) + String(getModif(roll.stat)));
-    const result = Math.ceil(rdm * roll.type) + getModif(roll.stat);
+    alert(roll);
+    alert(String(roll.type) + String(getModif(roll.stat)));
+    const result = Math.ceil(Math.random() * roll.type) + getModif(roll.stat);
     alert('Resultat du jet de force: ' + String(result) + ', DD ' + String(roll.DD));
     if (result >= roll.DD) {
-        alert("Succes");
         resolvenode(roll['next (success)']);
     } else {
-        alert("Echec");
         resolvenode(roll['next (echec)']);
     }
 }
