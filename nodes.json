@@ -104,9 +104,12 @@
     "Fight brigands entrée": {
         "text": "\"Prends ça !\" Ouch, c'est un vilain coup qu'on vous assène",
         "choix": [
-            { "text": "À mon tour de taper !", "next": {"d20": {
-                "<8": "TODO",
-                ">7": "TODO"
+            { "text": "À mon tour de taper !", "next": {"roll": {
+                "type": 20,
+                "DD": 8,
+                "modif": "frc",
+                "next (success)": "TODO",
+                "next (echec)": "TODO"
             }}},
             { "text": "Je tente de m'enfuire", "next": "Fuite brigands" }
         ],

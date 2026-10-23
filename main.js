@@ -16,6 +16,7 @@ const mapImg = document.querySelector('#map-img');
 
 // Valeurs arbitraires
 const writingTime = 30; // [ms/char]
+const thikingTime = 10; // [ms/char]
 
 // Initialisation
 let currentnode = localStorage.getItem('currentnode') ?? 'start';
@@ -130,7 +131,17 @@ function propose(text, next) {
     btn.innerText = text;
     btn.addEventListener('click', () => {
         sendMessage(text, 'player');
-        resolvenode(next);
+        if (typeof next === 'string') {
+            resolvenode(next);
+        } else if (
+            typeof next === 'object'
+            && Object.keys(next).length === 1
+            && Object.keys(next)[0] === 'roll'
+        ) {
+            playRollAnim(next.roll);
+        } else {
+            console.error('next est de type inconnu');
+        }
     });
     footer.appendChild(btn);
 }
@@ -171,7 +182,16 @@ function resolvenode(nodeName, restaurer = false) {
             });
             save(nodeName);
         }, node.text.length * writingTime);
-    }, node.text.length * writingTime);
+    }, node.text.length * thikingTime);
+}
+
+function playRollAnim(roll) {
+    const result = Math.ceil(Math.random() * roll.type) + getModif(roll.stat);
+    if (result >= roll.DD) {
+        resolvenode(roll['next (success)']);
+    } else {
+        resolvenode(roll['next (echec)']);
+    }
 }
 
 function condition_ok(choix) {
@@ -256,7 +276,12 @@ function updateStat(stat, value) {
 }
 
 function getModif(stat) {
-    return Math.floor((stat-10) / 2);
+    if (typeof stat === 'number') {
+        return Math.floor((stat-10) / 2);
+    } else if (typeof stat === 'string' && Object.keys(stats).includes(stat)) {
+            return getModif(stats.stat);
+    }
+    console.error('stat est de type inconnu');
 }
 
 function save(currentnode) {
