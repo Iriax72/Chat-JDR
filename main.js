@@ -325,7 +325,7 @@ function getModif(stat) {
         return Math.floor((stat-10) / 2);
     } else if (typeof stat === 'string' && Object.keys(stats).includes(stat)) {
         alert('type : string && ok')
-        return getModif(stats.stat);
+        return getModif(stats[stat]);
     }
     alert("Erreur...")
     console.error('stat est de type inconnu');
