@@ -85,7 +85,14 @@
     "Nord": {
         "text": "La forêt semble sombre. Il est encore temps de rebrousser chemin.",
         "choix": [
-            { "text": "Non, je continue", "next": "Forêt" },
+            { "text": "Non, je continue", "next": "Forêt", "cond": {"enemys": {
+                "name": "brigands",
+                "hp": {"min": 1}
+            }} },
+            { "text": "Non, je continue", "next": "Forêt 2", "cond": {"enemys": {
+                "name": "brigands",
+                "hp": {"max": 0}
+            }} },
             { "text": "Je préfère ne pas m'y risquer...", "next": "Dehors" }
         ]
     },
@@ -93,7 +100,7 @@
         "text": "À peine vous entrez dans la forêt qu'un groupe de brigands vous tombe dessus:\n\"Les gars, voila de quoi remplir nos bourses\nHéhé, donne nous ton or bonhomme si tu tiens à la vie.\"",
         "choix": [
             { "text": "Prenez tous mais laissez moi partir", "next": "Soumission" },
-            { "text": "Je dégaine le fer \"Jamais !\"", "next": "Fight brigands entrée" }
+            { "text": "Je dégaine le fer \"Jamais !\"", "next": "Fight brigands entry" }
         ]
     },
     "Soumission": {
@@ -101,16 +108,41 @@
         "choix": [{ "text": "continuer", "next": "TODO" }],
         "stats": { "po": 0 }
     },
-    "Fight brigands entrée": {
+    "Fight brigands entry": {
+        "text": "Voila que l'un d'entre eux se jète sur vous et vous inflige un puissant coup de massue. Arriverez vous à riposter ?",
+        "choix": [
+            { "text": "Oh que oui !", "next": {"roll": {
+                "type": 20,
+                "DD": 8,
+                "modif": "frc",
+                "next (success)": "Brigands fight succes",
+                "next (echec)": "Brigands fight echec"
+            }}},
+            { "text": "Je tente de m'enfuire", "next": "Fuite brigands" }
+        ],
+        "stats": { "hp": {"add": -2} },
+        "enemy": [{
+            "name": "brigands",
+            "hp": 4
+        }]
+    },
+    "Fight brigands": {
         "text": "\"Prends ça !\" Ouch, c'est un vilain coup qu'on vous assène",
         "choix": [
             { "text": "À mon tour de taper !", "next": {"roll": {
                 "type": 20,
                 "DD": 8,
                 "modif": "frc",
-                "next (success)": "TODO",
-                "next (echec)": "TODO"
-            }}},
+                "next (success)": "Brigands fight succes",
+                "next (echec)": "Brigands fight echec"
+            }}, "cond": {"enemys": {"name": "brigands", "hp": {"min": 2}}}},
+            { "text": "À mon tour de taper !", "next": {"roll": {
+                "type": 20,
+                "DD": 8,
+                "modif": "frc",
+                "next (success)": "Brigands fight final",
+                "next (echec)": "Brigands fight echec"
+            }}, "cond": {"enemys": {"name": "brigands", "hp": {"max": 1}}} },
             { "text": "Je tente de m'enfuire", "next": "Fuite brigands" }
         ],
         "stats": { "hp": {"add": -2} }
@@ -118,5 +150,28 @@
     "Fuite brigands": {
         "text": "Les deux brigands les plus proches de vous se lancent à votre poursuite, mais le plus grand des deux trébuche soudainement sur une branche malcieuse et entraine son camarade dans sa chute.\nVous vous en sortez bien.",
         "choix": [{ "text": "Ouf", "next": "Dehors" }]
+    },
+    "Brigands fight succes": {
+        "text": "Et voila que vous aussi montrez des signes de force. Quel beau coup !",
+        "choix": [{ "text": "continuer", "next": "Fight brigands" }],
+        "enemy": [{
+            "name": "brigands",
+            "hp": {"add": -1}
+        }]
+    },
+    "Brigands fight echec": {
+        "text": "Dites donc, j'en ai vu des meilleures. L'adversaire s'est simplement décalé pour ne pas recevoir votre coup. Attention voila qu'il repasse à l'assaut !",
+        "choix": [{ "text": "continuer", "next": "Fight brigands" }]
+    },
+    "Brigands fight final": {
+        "text": "\"Non !\"\nVous les avez eu, le dernier est tombé. En les fouillant, vous trouvez 30 pièces d'or, ils n'en ont probablement plus besoin...",
+        "choix": [{ "text": "Je continue mon chemin", "next": "Forêt 2" }],
+        "stats": {
+            "po": {"add": 30}
+        }
+    },
+    "Forêt 2": {
+        "text": "foret 2",
+        "choix": []
     }
 }

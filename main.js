@@ -24,6 +24,10 @@ const historique = JSON.parse(localStorage.getItem('historique')) ?? [];
 const inventory = JSON.parse(localStorage.getItem('inventory')) ?? ['🗡️', '📝', '🧳'];
 const journal = JSON.parse(localStorage.getItem('journal')) ?? [];
 
+const enemysHp = JSON.parse(localStorage.getItem('enemysHp')) ?? {
+    "brigands": 4
+}
+
 const statsParDefaut = {
     po: 15,
     hp: 20,
@@ -44,6 +48,7 @@ crossBtn.addEventListener('click', () => {
     localStorage.removeItem('historique');
     localStorage.removeItem('inventory');
     localStorage.removeItem('journal');
+    localStorage.removeItem('enemysHp');
     localStorage.removeItem('stats');
 })
 
@@ -175,6 +180,9 @@ function resolvenode(nodeName, restaurer = false) {
             if (node.journal) {
                 appliquerModif(node.journal, journal);
             }
+            if (node.enemy) {
+                appliquerModifEnemys(node.enemy);
+            }
             node.choix.forEach(choix => {
                 if (condition_ok(choix)) {
                     propose(choix.text, choix.next);
@@ -202,6 +210,22 @@ function condition_ok(choix) {
         }
         if (Object.prototype.hasOwnProperty.call(cond, 'journal')) {
             return journal.includes(cond.journal);
+        }
+        if (Object.prototype.hasOwnProperty.call(cond, 'enemy')) {
+            const hp = cond.enemy.hp;
+            if (typeof hp === 'number') {
+                return enemysHp[cond.enemy.name] === hp;
+            } else if (typeof hp === 'object' && Object.keys(hp).length === 1) {
+                if (Object.keys(hp)[0] === 'min') {
+                    return hp.min <= stats.hp
+                } else if (Object.keys(hp)[0] === 'max') {
+                    return hp.max >= stats.hp
+                } else {
+                    console.error("clé de cond.enemy.hp inconnue");
+                }
+            } else {
+                console.error('type de cond.enemy.hp inconnu');
+            }
         }
         console.error(`Condition inconnue dans nodes.json`);
         return false;
@@ -260,6 +284,23 @@ function appliquerModif(modifs, list) {
     });
 }
 
+function appliquerModifEnemys(modifs) {
+    modifs.forEach(modif => {
+        const name = modif.name;
+        const hp = modif.hp;
+        if (typeof hp === 'number') {
+            enemysHp[name] = hp
+        } else if (
+            typeof hp === 'object'
+            && typeof hp.add === 'number'
+        ) {
+            enemysHp[name] = enemysHp[name] + hp.add;
+        } else {
+            console.error('type de hp inconnu');
+        }
+    });
+}
+
 function updateStat(stat, value) {
     stats[stat] = value;
     if (stat === 'hp') {
@@ -289,5 +330,6 @@ function save(currentnode) {
     localStorage.setItem('historique', JSON.stringify(historique));
     localStorage.setItem('inventory', JSON.stringify(inventory));
     localStorage.setItem('journal', JSON.stringify(journal));
+    localStorage.setItem('enemysHp', JSON.stringify(enemysHp));
     localStorage.setItem('stats', JSON.stringify(stats));
 }
