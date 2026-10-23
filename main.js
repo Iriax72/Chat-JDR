@@ -195,7 +195,7 @@ function resolvenode(nodeName, restaurer = false) {
 
 function playRollAnim(roll) {
     const rdm = Math.random();
-    alert(rdm, roll.type, getModif(roll.stat));
+    alert(String(rdm) + String(roll.type) + String(getModif(roll.stat)));
     const result = Math.ceil(rdm * roll.type) + getModif(roll.stat);
     alert('Resultat du jet de force: ' + String(result) + ', DD ' + String(roll.DD));
     if (result >= roll.DD) {
