@@ -205,7 +205,9 @@ function playRollAnim(roll) {
 
 function condition_ok(condition) {
     alert("cond: " + JSON.stringify(condition))
+    alert(!condition);
     if (!condition) return true;
+    alert('return passé')
     return condition.every(cond => {
         alert('dans le every')
         if (Object.prototype.hasOwnProperty.call(cond, 'inventory')) {
