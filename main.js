@@ -184,7 +184,7 @@ function resolvenode(nodeName, restaurer = false) {
                 appliquerModifEnemys(node.enemy);
             }
             node.choix.forEach(choix => {
-                if (condition_ok(choix)) {
+                if (condition_ok(choix.condition)) {
                     propose(choix.text, choix.next);
                 }
             });
@@ -203,9 +203,9 @@ function playRollAnim(roll) {
     }
 }
 
-function condition_ok(choix) {
-    if (!choix.condition) return true;
-    return choix.condition.every(cond => {
+function condition_ok(condition) {
+    if (!condition) return true;
+    return condition.every(cond => {
         if (Object.prototype.hasOwnProperty.call(cond, 'inventory')) {
             return inventory.includes(cond.inventory);
         }
@@ -213,6 +213,7 @@ function condition_ok(choix) {
             return journal.includes(cond.journal);
         }
         if (Object.prototype.hasOwnProperty.call(cond, 'enemy')) {
+            alert('cond enemy')
             const hp = cond.enemy.hp;
             if (typeof hp === 'number') {
                 return enemysHp[cond.enemy.name] === hp;
