@@ -194,10 +194,8 @@ function resolvenode(nodeName, restaurer = false) {
 }
 
 function playRollAnim(roll) {
-    alert(roll);
-    alert(String(getModif(roll.modif)));
     const result = Math.ceil(Math.random() * roll.type) + getModif(roll.modif);
-    alert('Resultat du jet de force: ' + String(result) + ', DD ' + String(roll.DD));
+    alert('Resultat du jet de force: ' + String(result) + ',\nDD ' + String(roll.DD));
     if (result >= roll.DD) {
         resolvenode(roll['next (success)']);
     } else {
@@ -320,14 +318,11 @@ function updateStat(stat, value) {
 }
 
 function getModif(stat) {
-    alert("get modif " + String(stat));
     if (typeof stat === 'number') {
         return Math.floor((stat-10) / 2);
     } else if (typeof stat === 'string' && Object.keys(stats).includes(stat)) {
-        alert('type : string && ok')
         return getModif(stats[stat]);
     }
-    alert("Erreur...")
     console.error('stat est de type inconnu');
 }
 
