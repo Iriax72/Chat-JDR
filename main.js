@@ -207,7 +207,7 @@ function condition_ok(condition) {
     alert("cond: " + JSON.stringify(condition))
     if (!condition) return true;
     alert('return passé')
-    return Object.entries(condition).every((condType, cond) => {
+    return Object.entries(condition).every(([condType, cond]) => {
         alert('dans le every')
         if (condType === 'inventory') {
             alert('inventory')
