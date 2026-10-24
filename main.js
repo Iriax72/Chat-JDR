@@ -205,24 +205,23 @@ function playRollAnim(roll) {
 
 function condition_ok(condition) {
     alert("cond: " + JSON.stringify(condition))
-    alert(!condition);
     if (!condition) return true;
     alert('return passé')
-    return condition.every(cond => {
+    return Object.entries(condition).every((condType, cond) => {
         alert('dans le every')
-        if (Object.prototype.hasOwnProperty.call(cond, 'inventory')) {
-            alert('incentory')
-            return inventory.includes(cond.inventory);
+        if (condType === 'inventory') {
+            alert('inventory')
+            return inventory.includes(cond);
         }
-        if (Object.prototype.hasOwnProperty.call(cond, 'journal')) {
+        if (condType === 'journal') {
             alert('journal')
-            return journal.includes(cond.journal);
+            return journal.includes(cond);
         }
-        if (Object.prototype.hasOwnProperty.call(cond, 'enemy')) {
+        if (condType === 'enemy') {
             alert('cond enemy')
-            const hp = cond.enemy.hp;
+            const hp = cond.hp;
             if (typeof hp === 'number') {
-                return enemysHp[cond.enemy.name] === hp;
+                return enemysHp[cond.name] === hp;
             } else if (typeof hp === 'object' && Object.keys(hp).length === 1) {
                 if (Object.keys(hp)[0] === 'min') {
                     return hp.min <= stats.hp
