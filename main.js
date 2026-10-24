@@ -204,6 +204,7 @@ function playRollAnim(roll) {
 }
 
 function condition_ok(condition) {
+    alert("cond: " + JSON.stringify(condition))
     if (!condition) return true;
     return condition.every(cond => {
         if (Object.prototype.hasOwnProperty.call(cond, 'inventory')) {
