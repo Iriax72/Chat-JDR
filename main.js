@@ -207,10 +207,13 @@ function condition_ok(condition) {
     alert("cond: " + JSON.stringify(condition))
     if (!condition) return true;
     return condition.every(cond => {
+        alert('dans le every')
         if (Object.prototype.hasOwnProperty.call(cond, 'inventory')) {
+            alert('incentory')
             return inventory.includes(cond.inventory);
         }
         if (Object.prototype.hasOwnProperty.call(cond, 'journal')) {
+            alert('journal')
             return journal.includes(cond.journal);
         }
         if (Object.prototype.hasOwnProperty.call(cond, 'enemy')) {
