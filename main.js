@@ -204,21 +204,15 @@ function playRollAnim(roll) {
 }
 
 function condition_ok(condition) {
-    alert("cond: " + JSON.stringify(condition))
     if (!condition) return true;
-    alert('return passé')
     return Object.entries(condition).every(([condType, cond]) => {
-        alert('dans le every')
         if (condType === 'inventory') {
-            alert('inventory')
             return inventory.includes(cond);
         }
         if (condType === 'journal') {
-            alert('journal')
             return journal.includes(cond);
         }
         if (condType === 'enemy') {
-            alert('cond enemy')
             const hp = cond.hp;
             if (typeof hp === 'number') {
                 return enemysHp[cond.name] === hp;
@@ -234,7 +228,6 @@ function condition_ok(condition) {
                 console.error('type de cond.enemy.hp inconnu');
             }
         }
-        alert('condition inconnue: ' + String(cond))
         console.error(`Condition inconnue dans nodes.json`);
         return false;
     });
