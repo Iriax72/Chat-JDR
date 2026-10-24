@@ -229,6 +229,7 @@ function condition_ok(condition) {
                 console.error('type de cond.enemy.hp inconnu');
             }
         }
+        alert('condition inconnue: ' + String(cond))
         console.error(`Condition inconnue dans nodes.json`);
         return false;
     });
