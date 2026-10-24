@@ -85,11 +85,11 @@
     "Nord": {
         "text": "La forêt semble sombre. Il est encore temps de rebrousser chemin.",
         "choix": [
-            { "text": "Non, je continue", "next": "Forêt", "cond": {"enemys": {
+            { "text": "Non, je continue", "next": "Forêt", "condition": {"enemys": {
                 "name": "brigands",
                 "hp": {"min": 1}
             }} },
-            { "text": "Non, je continue", "next": "Forêt 2", "cond": {"enemys": {
+            { "text": "Non, je continue", "next": "Forêt 2", "condition": {"enemys": {
                 "name": "brigands",
                 "hp": {"max": 0}
             }} },
@@ -135,14 +135,14 @@
                 "modif": "frc",
                 "next (success)": "Brigands fight succes",
                 "next (echec)": "Brigands fight echec"
-            }}, "cond": {"enemys": {"name": "brigands", "hp": {"min": 2}}}},
+            }}, "condition": {"enemys": {"name": "brigands", "hp": {"min": 2}}}},
             { "text": "À mon tour de taper !", "next": {"roll": {
                 "type": 20,
                 "DD": 8,
                 "modif": "frc",
                 "next (success)": "Brigands fight final",
                 "next (echec)": "Brigands fight echec"
-            }}, "cond": {"enemys": {"name": "brigands", "hp": {"max": 1}}} },
+            }}, "condition": {"enemys": {"name": "brigands", "hp": {"max": 1}}} },
             { "text": "Je tente de m'enfuire", "next": "Fuite brigands" }
         ],
         "stats": { "hp": {"add": -2} }
