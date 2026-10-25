@@ -186,25 +186,97 @@
     "Labyrinthe 1": {
         "text": "Plus vous avancez dans la forêt, moins vous avez de chances d'en ressortir.",
         "choix": [
-            { "text": "Je vais à droite", "next": "TODO" },
-            { "text": "Je vais tout droit", "next": "TODO" },
-            { "text": "Je vais à gauche", "next": "TODO" }
+            { "text": "Je vais à droite", "next": "Champignons" },
+            { "text": "Je vais tout droit", "next": "Labyrinthe 6" },
+            { "text": "Je vais à gauche", "next": "Labyrinthe 7" }
         ]
     },
     "Labyrinthe 2": {
         "text": "Vous arrivez face à une maison de laquelle s'échape une alléchante odeur de chocolat.",
         "choix": [
-            { "text": "Mhhh, j'entre!", "next": "TODO" },
-            { "text": "On n'entre pas chez les inconnus voyons", "next": "Labyrinthe 4" }
+            { "text": "Mhhh, j'entre!", "next": "Maison foret" },
+            { "text": "On n'entre pas chez les inconnus voyons", "next": "Labyrinthe 6" }
         ]
     },
     "Labyrinthe 3": {
-        "text": "La forêt se densifie, il y a de moins en moins de lumière."
+        "text": "La forêt se densifie, il y a de moins en moins de lumière.",
+        "choix": [
+            { "text": "Je continue tout droit", "next": "Labyrinthe 8" },
+            { "text": "J'essaie de revenir en arrière", "next": "Labyrinthe 2" }
+        ]
     },
     "Labyrinthe 4": {
-        "text": "Et maintenant, où allons-nous?"
+        "text": "Et maintenant, où allons-nous?",
+        "choix": [
+            { "text": "Je pars vers la gauche", "next": "Ermite" },
+            { "text": "Quels beaux cailoux! Je vais dans leur direction", "next": "Labyrinthe 6" },
+            { "text": "Je retourne à droite", "next": "Lisière" }
+        ]
     },
     "Labyrinthe 5": {
-        "text": "Eh bein, on dirait que vous etes perdu..."
+        "text": "La route est barré par un tronc colossal.",
+        "choix": [
+            { "text": "Je passe à coté du tronc", "next": "Labyrinthe 7" },
+            { "text": "Je soulève le tronc et passe derrière", "next": "Labyrinthe 2", "cond": {"stat": {"frc": {"min": 12}}} }
+        ]
+    },
+    "Labyrinthe 6": {
+        "text": "Eh bein, on dirait que vous etes perdu...",
+        "choix": [
+            { "text": "C'est pas grave je continue", "next": "Labyrinthe 8" },
+            { "text": "Je décide de contourner l'arbuste", "next": "Labyrinthe 1" }
+        ]
+    },
+    "Labyrinthe 7": {
+        "text": "Vous arrivez face à un massif rocheux",
+        "choix": [
+            { "text": "Je vais vers les grottes", "next": "Ours" },
+            { "text": "Je le longe par l'Est", "next": "Trésor 1" },
+            { "text": "Je le longe par l'Ouest", "next": "Lisière" }
+        ]
+    },
+    "Labyrinthe 8": {
+        "text": "J'ai l'impression que vous tournez en rond...",
+        "choix": [
+            { "text": "Je pars à droite", "next": "Forêt 2" },
+            { "text": "J'essaie plutôt à gauche", "next": "Forêt 2" }
+        ]
+    },
+    "Maison foret": {
+        "text": "",
+        "choix": []
+    },
+    "Champignons": {
+        "text": "En continuant votre randonnée, vous découvrez une colonie de petits champignons.",
+        "choix": [{ "text": "J'en ramasse et continue mon chemin", "next": "Labyrinthe 6" }],
+        "inventory": [{ "give": "🍄" }]
+    },
+    "Ours": {
+        "text": "",
+        "choix": []
+    },
+    "Trésor 1": {
+        "text": "En marchant, vous remarquez un petit tas de pierre",
+        "choix": [
+            { "text": "Je vais voir plus en détails", "next": "Trésor 2" },
+            { "text": "Je passe mon chemin, pas de temps à perdre.", "next": "" }
+        ]
+    },
+    "Trésor 2": {
+        "text": "Vous remuez un peu les pierres et parvenez à en sortir un petit coffre de bois qui y était caché. Après l'avoir ouvert, vos yeux s'illuminent: c'est un véritable trésore que voila!",
+        "choix": [{ "text": "Je prends tout!", "next": "Lisière" }],
+        "inventory": [{ "give": "💎" }],
+        "stats": [{ "po": {"add": 100} }]
+    },
+    "Lisière": {
+        "text": "Ah! vous revoila en lisière de forêt. Vous appercevez même la fumée des cheminées de l'auberge à l'horizon",
+        "choix": [
+            { "text": "Je n'ai pas fini d'explorer, j'y retourne.", "next": "Forêt 2" },
+            { "text": "Quel soulagement, je rentre au coin du feu.", "next": "Dehors" }
+        ]
+    },
+    "Ermite": {
+        "text": "",
+        "choix": []
     }
 }
