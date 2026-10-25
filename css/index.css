@@ -11,4 +11,7 @@ a {
     background-color: chocolate;
     color: #40d;
     font-size: 1.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

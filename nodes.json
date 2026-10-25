@@ -105,7 +105,7 @@
     },
     "Soumission": {
         "text": "Vous êtes passé, mais à quel coût? Bon profitez au moins de votre ballade forestière",
-        "choix": [{ "text": "continuer", "next": "TODO" }],
+        "choix": [{ "text": "continuer", "next": "Forêt 2" }],
         "stats": { "po": 0 }
     },
     "Fight brigands entry": {
