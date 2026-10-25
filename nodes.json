@@ -165,13 +165,46 @@
     },
     "Brigands fight final": {
         "text": "\"Non !\"\nVous les avez eu, le dernier est tombé. En les fouillant, vous trouvez 30 pièces d'or, ils n'en ont probablement plus besoin...",
-        "choix": [{ "text": "Je continue mon chemin", "next": "Forêt 2" }],
+        "choix": [
+            { "text": "Je continue mon chemin", "next": "Forêt 2" },
+            { "text": "Finalement, je préfère retourner vers l'auberge", "next": "Dehors" }
+        ],
         "stats": {
             "po": {"add": 30}
         }
     },
     "Forêt 2": {
-        "text": "foret 2",
-        "choix": []
+        "text": "Cette forêt est un véritable labyrithe... Il y a autant de chemins possibles que de feuilles mortes",
+        "choix": [
+            { "text": "Je prends tout à gauche", "next": "Labyrinthe 1" },
+            { "text": "Je vais en direction de la bonne odeur", "next": "Labyrinthe 2", "condition": {"stat": {"sag": {"min": 12}}} },
+            { "text": "J'irai tout droit", "next": "Labyrinthe 3" },
+            { "text": "Allons vers le grand chêne", "next": "Labyrinthe 4" },
+            { "text": "J'essaie à droite", "next": "Labyrinthe 5" }
+        ]
+    },
+    "Labyrinthe 1": {
+        "text": "Plus vous avancez dans la forêt, moins vous avez de chances d'en ressortir.",
+        "choix": [
+            { "text": "Je vais à droite", "next": "TODO" },
+            { "text": "Je vais tout droit", "next": "TODO" },
+            { "text": "Je vais à gauche", "next": "TODO" }
+        ]
+    },
+    "Labyrinthe 2": {
+        "text": "Vous arrivez face à une maison de laquelle s'échape une alléchante odeur de chocolat.",
+        "choix": [
+            { "text": "Mhhh, j'entre!", "next": "TODO" },
+            { "text": "On n'entre pas chez les inconnus voyons", "next": "Labyrinthe 4" }
+        ]
+    },
+    "Labyrinthe 3": {
+        "text": "La forêt se densifie, il y a de moins en moins de lumière."
+    },
+    "Labyrinthe 4": {
+        "text": "Et maintenant, où allons-nous?"
+    },
+    "Labyrinthe 5": {
+        "text": "Eh bein, on dirait que vous etes perdu..."
     }
 }

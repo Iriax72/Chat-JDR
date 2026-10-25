@@ -228,6 +228,33 @@ function condition_ok(condition) {
                 console.error('type de cond.enemy.hp inconnu');
             }
         }
+        if (condType === "stat") {
+            return Object.entries(cond).every(([stat, value]) => {
+                if (!Object.prototype.hasOwnProperty.call(stats, stat)) {
+                    return false;
+                }
+                if (typeof value === "number") {
+                    return value === stats[stat];
+                } else if (
+                    typeof value === "object"
+                    && value.length === 1
+                    && typeof Object.values(value)[0] === 'number'
+                ) {
+                    const key = Object.keys(value)[0];
+                    if (key === 'min') {
+                        return value.min <= stats[stat];
+                    } else if (key === 'max') {
+                        return value.max >= stats[stat];
+                    } else {
+                        console.error('la valeur est illisible');
+                        return false;
+                    }
+                } else {
+                    console.error('condition non évaluable');
+                    return false;
+                }
+            });
+        }
         console.error(`Condition inconnue dans nodes.json`);
         return false;
     });
