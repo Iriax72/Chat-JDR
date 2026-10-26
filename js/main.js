@@ -13,10 +13,13 @@ const journalBtn = document.querySelector('#journal');
 const mapBtn = document.querySelector('#map');
 
 const mapImg = document.querySelector('#map-img');
+const diceImg = document.querySelector('#dice-img');
 
 // Valeurs arbitraires
 const writingTime = 30; // [ms/char]
 const thikingTime = 10; // [ms/char]
+const rollTime = 3200; // [ms]
+const rollInterval = 125; // [ms]
 
 // Initialisation
 let currentnode = localStorage.getItem('currentnode') ?? 'start';
@@ -194,13 +197,28 @@ function resolvenode(nodeName, restaurer = false) {
 }
 
 function playRollAnim(roll) {
-    const result = Math.ceil(Math.random() * roll.type) + getModif(roll.modif);
-    alert('Resultat du jet de force: ' + String(result) + ',\nDD ' + String(roll.DD));
-    if (result >= roll.DD) {
-        resolvenode(roll['next (success)']);
-    } else {
-        resolvenode(roll['next (echec)']);
-    }
+    const result = Math.floor(Math.random() * roll.type) + 1;
+    const diceContainer = document.createElement('div');
+    const dice = dice-img.cloneNode();
+    diceContainer.classList.add('dice-container', 'rolling');
+    document.appendChild(diceContainer);
+    let time = 0;
+    let interval = setInterval(() => {
+        time += rollInterval
+        dice.textContent = Math.floor(Math.random() * roll.type) + 1
+        if (time > rollTime) {
+            clearInterval(interval);
+            diceContainer.classList.remove('rolling');
+            dice.textContent = String(result);
+            const modif = getModif(roll.modif);
+            alert('Resultat du jet de force: ' + String(result + modif) + ',\nDD ' + String(roll.DD));
+            if (result + modif >= roll.DD) {
+                resolvenode(roll['next (success)']);
+            } else {
+                resolvenode(roll['next (echec)']);
+            }
+        }
+    }, rollInterval);
 }
 
 function condition_ok(condition) {
