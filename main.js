@@ -29,10 +29,10 @@ const enemysHp = JSON.parse(localStorage.getItem('enemysHp')) ?? {
 }
 
 const statsParDefaut = {
-    po: 15,
+    po: 5,
     hp: 20,
-    frc: 10,
-    sag: 10,
+    frc: 8,
+    sag: 8,
 };
 const statsStockees = JSON.parse(localStorage.getItem('stats'));
 const stats = {
