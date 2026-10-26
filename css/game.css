@@ -30,7 +30,7 @@ header {
 }
 
 #head {
-    padding: 10px 8px;
+    padding: 18px 5px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -39,9 +39,10 @@ header {
 }
 
 #stats {
+    width: 100vw;
     border-top: 2px solid black;
     border-bottom: 2px solid black;
-    padding: 8px;
+    padding: 26px 8px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
