@@ -74,21 +74,21 @@ fetch('../nodes.json')
 
 // Event lisiteners
 inventoryBtn.addEventListener('click', () => {
-    openPopup(inventory, 'inventaire');
+    openPopup(inventory, 'inventaire', 'inventory');
 });
 
 journalBtn.addEventListener('click', () => {
-    openPopup(journal, 'journal');
+    openPopup(journal, 'journal', 'journal');
 });
 
 mapBtn.addEventListener('click', () => {
-    openPopup([mapImg], 'map');
+    openPopup([mapImg], 'map', 'map');
 });
 
 // Utilitaires
-function openPopup(listContent, popupName) {
+function openPopup(listContent, popupName, className) {
     const d = document.createElement('div');
-    d.classList.add('popup');
+    d.classList.add('popup', className);
     listContent.forEach(obj => {
         const s = document.createElement('span');
         if (typeof obj === 'string') {
