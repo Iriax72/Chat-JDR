@@ -30,6 +30,7 @@ header {
 }
 
 #head {
+    padding: 10px 8px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -38,6 +39,9 @@ header {
 }
 
 #stats {
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    padding: 8px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -115,6 +119,7 @@ main .player-text {
 }
 
 footer {
+    border-top: 2px solid black;
     height: 70px;
     flex-grow: 0;
     padding: 5px;
