@@ -1,5 +1,3 @@
-alert('sl')
-
 // References DOM
 const crossBtn = document.querySelector('.cross-btn');
 const main = document.querySelector('main');
@@ -16,6 +14,7 @@ const mapBtn = document.querySelector('#map');
 
 const mapImg = document.querySelector('#map-img');
 const diceImg = document.querySelector('#dice-img');
+alert(diceImg);
 
 // Valeurs arbitraires
 const writingTime = 30; // [ms/char]
@@ -203,6 +202,7 @@ function playRollAnim(roll) {
     const diceContainer = document.createElement('div');
     diceContainer.classList.add('dice-container');
     const dice = diceImg.cloneNode();
+    dice.removeAttribute('id');
     dice.classList.add('rolling');
     const span = document.createElement('span');
     document.body.appendChild(span);
