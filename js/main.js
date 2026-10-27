@@ -203,10 +203,12 @@ function playRollAnim(roll) {
     diceContainer.classList.add('dice-container', 'rolling');
     document.appendChild(diceContainer);
     let time = 0;
+    alert('Interval')
     let interval = setInterval(() => {
         time += rollInterval
         dice.textContent = Math.floor(Math.random() * roll.type) + 1
         if (time > rollTime) {
+            alert('end')
             clearInterval(interval);
             diceContainer.classList.remove('rolling');
             dice.textContent = String(result);
