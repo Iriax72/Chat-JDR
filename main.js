@@ -14,7 +14,6 @@ const mapBtn = document.querySelector('#map');
 
 const mapImg = document.querySelector('#map-img');
 const diceImg = document.querySelector('#dice-img');
-alert(diceImg);
 
 // Valeurs arbitraires
 const writingTime = 30; // [ms/char]
@@ -200,10 +199,9 @@ function resolvenode(nodeName, restaurer = false) {
 function playRollAnim(roll) {
     const result = Math.floor(Math.random() * roll.type) + 1;
     const diceContainer = document.createElement('div');
-    diceContainer.classList.add('dice-container');
+    diceContainer.classList.add('dice-container', 'rolling');
     const dice = diceImg.cloneNode();
     dice.removeAttribute('id');
-    dice.classList.add('rolling');
     const span = document.createElement('span');
     diceContainer.appendChild(dice);
     diceContainer.appendChild(span);
