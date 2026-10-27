@@ -1,3 +1,5 @@
+alert('sl')
+
 // References DOM
 const crossBtn = document.querySelector('.cross-btn');
 const main = document.querySelector('main');
