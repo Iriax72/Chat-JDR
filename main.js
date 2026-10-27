@@ -208,7 +208,8 @@ function playRollAnim(roll) {
     alert('dice?: ' + String(dice))
     diceContainer.classList.add('dice-container', 'rolling');
     alert('classlist ok')
-    document.appendChild(diceContainer);
+    document.body.appendChild(diceContainer);
+    alert('Ajout du dé')
     let time = 0;
     alert('Interval')
     let interval = setInterval(() => {
