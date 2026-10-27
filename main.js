@@ -205,7 +205,8 @@ function playRollAnim(roll) {
     dice.removeAttribute('id');
     dice.classList.add('rolling');
     const span = document.createElement('span');
-    document.body.appendChild(span);
+    diceContainer.appendChild(dice);
+    diceContainer.appendChild(span);
     document.body.appendChild(diceContainer);
     let time = 0;
     let interval = setInterval(() => {
