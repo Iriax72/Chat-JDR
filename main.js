@@ -199,27 +199,22 @@ function resolvenode(nodeName, restaurer = false) {
 }
 
 function playRollAnim(roll) {
-    alert('playrollanim')
     const result = Math.floor(Math.random() * roll.type) + 1;
-    alert('result: ' + String(result));
     const diceContainer = document.createElement('div');
-    alert('dice container: ' + String(diceContainer));
+    diceContainer.classList.add('dice-container');
     const dice = diceImg.cloneNode();
-    alert('dice?: ' + String(dice))
-    diceContainer.classList.add('dice-container', 'rolling');
-    alert('classlist ok')
+    dice.classList.add('rolling');
+    const span = document.createElement('span');
+    document.body.appendChild(span);
     document.body.appendChild(diceContainer);
-    alert('Ajout du dé')
     let time = 0;
-    alert('Interval')
     let interval = setInterval(() => {
         time += rollInterval
-        dice.textContent = Math.floor(Math.random() * roll.type) + 1
+        span.textContent = Math.floor(Math.random() * roll.type) + 1
         if (time > rollTime) {
-            alert('end')
             clearInterval(interval);
             diceContainer.classList.remove('rolling');
-            dice.textContent = String(result);
+            span.textContent = String(result);
             const modif = getModif(roll.modif);
             alert('Resultat du jet de force: ' + String(result + modif) + ',\nDD ' + String(roll.DD));
             if (result + modif >= roll.DD) {
