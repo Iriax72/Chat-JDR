@@ -199,9 +199,10 @@ function resolvenode(nodeName, restaurer = false) {
 }
 
 function playRollAnim(roll) {
+    alert('playrollanim')
     const result = Math.floor(Math.random() * roll.type) + 1;
     const diceContainer = document.createElement('div');
-    const dice = dice-img.cloneNode();
+    const dice = diceImg.cloneNode();
     diceContainer.classList.add('dice-container', 'rolling');
     document.appendChild(diceContainer);
     let time = 0;
