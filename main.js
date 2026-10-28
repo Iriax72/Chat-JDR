@@ -192,7 +192,7 @@ function propose(text, next) {
             && Object.keys(next)[0] === 'roll'
         ) {
             const roll = next.roll;
-            const diceResult = Math.floor(Math.random * roll.type) + 1;
+            const diceResult = Math.floor(Math.random() * roll.type) + 1;
             const modif = getModif(roll.modif);
             sendMessage('dice', diceResult, 'player', true);
             setTimeout(() => {
