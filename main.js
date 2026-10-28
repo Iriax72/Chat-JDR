@@ -70,6 +70,9 @@ fetch('../nodes.json')
                 : 'Erreur, type de message inconnu'
             main.appendChild(p);
         });
+        // Essais
+        sendMessage('dice', 20, 'player');
+        sendMessage('dice', 8, 'MJ');
         resolvenode(currentnode, localStorage.getItem('currentnode') !== null)
     })
     .catch(error => {
