@@ -72,7 +72,7 @@ fetch('../nodes.json')
         });
         // Essais
         sendMessage('dice', 20, 'player');
-        sendMessage('dice', 8, 'MJ');
+        sendMessage('dice', 8, 'MJ', true);
         resolvenode(currentnode, localStorage.getItem('currentnode') !== null)
     })
     .catch(error => {
@@ -142,11 +142,25 @@ function sendMessage(type, message, from, sendEffect = false) {
         historique.push({type: type, message: message, from: from});
         const p = document.createElement('p');
         p.classList.add(from + '-text');
+        main.appendChild(p)
         if (sendEffect) {
-            // TODO
+            const span = document.createElement('span');
+            const dice = createHTMLDice(span);
+            dice.classList.add('rolling');
+            p.appendChild(dice);
+            let time = 0;
+            let interval = setInterval(() => {
+                time += rollInterval;
+                const rdm = Math.floor(Math.random() * 20) + 1;
+                span.textContent = rdm;
+                if (time > rollTime) {
+                    clearInterval(interval);
+                    span.textContent = message;
+                    dice.classList.remove('rolling');
+                }
+            }, rollInterval);
         } else {
             p.appendChild(createHTMLDice(message));
-            main.appendChild(p);
         }
     } else {
         console.error('type de message incconu');
@@ -159,7 +173,7 @@ function createHTMLDice(content = '') {
     const dice = diceImg.cloneNode();
     dice.removeAttribute('id');
     const span = document.createElement('span');
-    span.textContent = content;
+    span.innerHTML = content;
     diceContainer.appendChild(dice);
     diceContainer.appendChild(span);
     return diceContainer;
