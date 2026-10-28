@@ -184,7 +184,7 @@ footer button {
 
 .dice-container {
     position: relative;
-    display: inline;
+    display: inline-block;
     vertical-align: middle;
     transition: transform 0.2s ease;
 }
