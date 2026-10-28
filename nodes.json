@@ -127,7 +127,11 @@
         }]
     },
     "Fight brigands": {
-        "text": ["\"Prends ça !\" Ouch, c'est un vilain coup qu'on vous assène"],
+        "text": [
+            "\"Prends ça !\" Ouch, c'est un vilain coup qu'on vous assène",
+            "Le brigand est parvenu à percer votre défense, et vous blesse de la pointe de son arme. Tenez-bon!",
+            "Attention! vous n'aviez pas vu l'adversaire dans votre dos ? Il viens de vous infligez un coup dont vous vous souviendrez"
+        ],
         "choix": [
             { "text": "À mon tour de taper !", "next": {"roll": {
                 "type": 20,
@@ -154,8 +158,8 @@
     "Brigands fight succes": {
         "text": [
             "Et voila que vous aussi montrez des signes de force. Quel beau coup !",
-            "Votre bras fuse dans l'air et le coup assome sa cible, beau travail.",
-            "Magnifique! le brigand qui vous attaquait est maintenant au sol."
+            "Votre bras fuse dans l'air et le coup assome sa cible, beau travail. Cependant un autre bandit vous fond dessus.",
+            "Magnifique! le brigand qui vous attaquait est maintenant au sol. Restez tout de même attentif, son camarade prends le relais"
         ],
         "choix": [{ "text": "continuer", "next": "Fight brigands" }],
         "enemy": [{
