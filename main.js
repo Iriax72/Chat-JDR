@@ -71,9 +71,6 @@ fetch('../nodes.json')
             );
             main.appendChild(p);
         });
-        // Essais
-        sendMessage('dice', 20, 'player');
-        sendMessage('dice', 8, 'MJ', true);
         resolvenode(currentnode, localStorage.getItem('currentnode') !== null)
     })
     .catch(error => {
@@ -184,6 +181,7 @@ function propose(text, next) {
     const btn = document.createElement('button');
     btn.innerText = text;
     btn.addEventListener('click', () => {
+        footer.innerHTML = '';
         sendMessage('text', text, 'player');
         if (typeof next === 'string') {
             resolvenode(next);
@@ -212,7 +210,6 @@ function propose(text, next) {
 
 function resolvenode(nodeName, restaurer = false) {
     const node = nodes[nodeName];
-    footer.innerHTML = '';
     if (restaurer) {
         node.choix.forEach(choix => {
             if (condition_ok(choix)) {
