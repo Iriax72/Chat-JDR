@@ -191,7 +191,17 @@ function propose(text, next) {
             && Object.keys(next).length === 1
             && Object.keys(next)[0] === 'roll'
         ) {
-            playRollAnim(next.roll);
+            const roll = next.roll;
+            const diceResult = Math.floor(Math.random * roll.type) + 1;
+            const modif = getModif(roll.modif);
+            sendMessage('dice', diceResult, 'player', true);
+            setTimeout(() => {
+                if (diceResult + modif >= roll.DD) {
+                    resolvenode(roll['next (success)']);
+                } else {
+                    resolvenode(roll['next (echec)']);
+                }
+            }, rollTime);
         } else {
             console.error('next est de type inconnu');
         }
