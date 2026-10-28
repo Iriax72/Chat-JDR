@@ -65,9 +65,10 @@ fetch('../nodes.json')
         historique.forEach(message => {
             const p = document.createElement('p');
             p.classList.add(message.from === 'player' ? 'player-text' : 'MJ-text');
-            p.innerHTML = message.type === 'text' ? message.message
+            p.innerHTML.append(message.type === 'text' ? message.message
                 : message.type = 'dice' ? createHTMLDice(message.message)
                 : 'Erreur, type de message inconnu'
+            );
             main.appendChild(p);
         });
         // Essais
