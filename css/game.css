@@ -183,9 +183,8 @@ footer button {
 }
 
 .dice-container {
-    position: fixed;
-    bottom: 80px;
-    right: 30px;
+    position: relative;
+    display: inline;
     z-index: 1000;
     text-align: center;
     transition: transform 0.2s ease;
