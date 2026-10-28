@@ -173,7 +173,7 @@ function createHTMLDice(content = '') {
     const dice = diceImg.cloneNode();
     dice.removeAttribute('id');
     const span = document.createElement('span');
-    span.innerHTML = content;
+    span.append(content);
     diceContainer.appendChild(dice);
     diceContainer.appendChild(span);
     return diceContainer;
