@@ -1,10 +1,10 @@
 {
     "TODO": {
-        "text": "todo",
+        "text": ["todo"],
         "choix": [{ "text": "recommencer", "next": "start" }]
     },
     "start": {
-        "text": "L'auberge du Dragon d'or est le lieu de prédilexion des marchants, explorateurs et voyageurs de tous types. Reliant la cité de Westelle au chateau d'Estillon, c'est un point stratégique pour commercer et faire de bons contacts.",
+        "text": ["L'auberge du Dragon d'or est le lieu de prédilexion des marchants, explorateurs et voyageurs de tous types. Reliant la cité de Westelle au chateau d'Estillon, c'est un point stratégique pour commercer et faire de bons contacts."],
         "choix": [
             { "text": "Je vais voir le barman", "next": "Barman" },
             { "text": "Je me ballade parmis les tables", "next": "PNJ-1" },
@@ -19,61 +19,61 @@
         }
     },
     "Barman": {
-        "text": "Bonsoir voyageur, qu'est ce que je vous sers ?",
+        "text": ["Bonsoir voyageur, qu'est ce que je vous sers ?"],
         "choix": [
             { "text": "J'ai trop bu pour aujourd'hui, montrez moi la sortie", "next": "Dehors" },
             { "text": "Une bière mon brave !", "next": "Biere" }
         ]
     },
     "Biere": {
-        "text": "Vous vous régalez, bon passons aux choses serieuses",
+        "text": ["Vous vous régalez, bon passons aux choses serieuses"],
         "choix": [
             { "text": "continuer", "next": "start" }
         ],
         "stats": { "po": {"add": -3} }
     },
     "PNJ-1": {
-        "text": "Parmis les clients, une jeune femme vous interpelle: \n\"Hey, vous qui avez l'air d'un grand chevalier, me rendriez-vous un service ?\"",
+        "text": ["Parmis les clients, une jeune femme vous interpelle: \n\"Hey, vous qui avez l'air d'un grand chevalier, me rendriez-vous un service ?\""],
         "choix": [
             { "text": "Bien volontier gente dame", "next": "Quete PNJ-1" },
             { "text": "Désolé, pas aujourd'hui, je suis trop saoul", "next": "start" }
         ]
     },
     "Quete PNJ-1": {
-        "text": "Oh j'étais sûre qu'un sire comme vous n'y manquerait pas,\nJe ne retrouve plus la tiare que m'avait offerte ma mère. Elle se transmet de mère en fille depuis des générations, c'est une véritable catastrophe. Pourriez-vous me la retrouver ?",
+        "text": ["Oh j'étais sûre qu'un sire comme vous n'y manquerait pas,\nJe ne retrouve plus la tiare que m'avait offerte ma mère. Elle se transmet de mère en fille depuis des générations, c'est une véritable catastrophe. Pourriez-vous me la retrouver ?"],
         "choix": [
             { "text": "Vous avez ma parole. Dans 7 levés de soleil, vous aurez retrouvé votre tiare", "next": "start" }
         ],
         "journal": [{ "give": "Retrouver la tiare perdue" }]
     },
     "PNJ-2": {
-        "text": "Quelle mauvaise idée! cet homme est completement ivre.\n\"Euhh j'suis Sir de Chateaugrand... Noble ch'valier de la maison... engagé dans la lute contre les goblins. Mais j'suis pas en état de m'battre là. Pourrier vous en descendre quelqu's'uns pour moi ?\"",
+        "text": ["Quelle mauvaise idée! cet homme est completement ivre.\n\"Euhh j'suis Sir de Chateaugrand... Noble ch'valier de la maison... engagé dans la lute contre les goblins. Mais j'suis pas en état de m'battre là. Pourrier vous en descendre quelqu's'uns pour moi ?\""],
         "choix": [
             { "text": "Avec honneur !", "next": "Quete PNJ-2" },
             { "text": "Sans façons", "next": "start" }
         ]
     },
     "Quete PNJ-2": {
-        "text": "Merci mon gars",
+        "text": ["Merci mon gars"],
         "choix": [{ "text": "continuer", "next": "start" }],
         "journal": [{ "give": "Abatre 10 goblins" }]
     },
     "PNJ-3": {
-        "text": "Brr il fait froid. Un jeune garçons vous aborde:\n\"Bonjour monsieur, vous ête un explorateur ? J'aurais besoin que quelqu'un remplisse ma carte pour en devnir un moi aussi\"",
+        "text": ["Brr il fait froid. Un jeune garçons vous aborde:\n\"Bonjour monsieur, vous ête un explorateur ? J'aurais besoin que quelqu'un remplisse ma carte pour en devnir un moi aussi\""],
         "choix": [
             { "text": "Bien sur gamin, je vais le faire", "next": "Quete PNJ-3" },
             { "text": "Désolé, j'ai la flemme", "next": "start" }
         ]
     },
     "Quete PNJ-3": {
-        "text": "Merci merci, merci ! La voila",
+        "text": ["Merci merci, merci ! La voila"],
         "choix": [{ "text": "Je prends la carte", "next": "start" }],
         "inventory": [{ "give": "🗺️" }],
         "journal":  [{ "give": "Remplir la carte de petit Jean"  }]
     },
 
     "Dehors": {
-        "text": "Une légère brise parfume l'air, ça sent l'aventure ! On dit qu'une vaste forêt s'étend sur les pleines du Nord. À l'Ouest vous attend la grande cité de Westelle. C'est de l'Est que vous venez, vous aviez croisé le fort d'Estillon. Quant au Sud, personne n'y est jamais allé, ou du moins n'en est revenu.",
+        "text": ["Une légère brise parfume l'air, ça sent l'aventure ! On dit qu'une vaste forêt s'étend sur les pleines du Nord. À l'Ouest vous attend la grande cité de Westelle. C'est de l'Est que vous venez, vous aviez croisé le fort d'Estillon. Quant au Sud, personne n'y est jamais allé, ou du moins n'en est revenu."],
         "choix": [
             { "text": "Je pars au Nord", "next": "Nord" },
             { "text": "Allons pour Westelle", "next": "TODO" },
@@ -83,7 +83,7 @@
     },
 
     "Nord": {
-        "text": "La forêt semble sombre. Il est encore temps de rebrousser chemin.",
+        "text": ["La forêt semble sombre. Il est encore temps de rebrousser chemin."],
         "choix": [
             { "text": "Non, je continue", "next": "Forêt", "condition": {"enemy": {
                 "name": "brigands",
@@ -97,19 +97,19 @@
         ]
     },
     "Forêt": {
-        "text": "À peine vous entrez dans la forêt qu'un groupe de brigands vous tombe dessus:\n\"Les gars, voila de quoi remplir nos bourses\nHéhé, donne nous ton or bonhomme si tu tiens à la vie.\"",
+        "text": ["À peine vous entrez dans la forêt qu'un groupe de brigands vous tombe dessus:\n\"Les gars, voila de quoi remplir nos bourses\nHéhé, donne nous ton or bonhomme si tu tiens à la vie.\""],
         "choix": [
             { "text": "Prenez tous mais laissez moi partir", "next": "Soumission" },
             { "text": "Je dégaine le fer \"Jamais !\"", "next": "Fight brigands entry" }
         ]
     },
     "Soumission": {
-        "text": "Vous êtes passé, mais à quel coût? Bon profitez au moins de votre ballade forestière",
+        "text": ["Vous êtes passé, mais à quel coût? Bon profitez au moins de votre ballade forestière"],
         "choix": [{ "text": "continuer", "next": "Forêt 2" }],
         "stats": { "po": 0 }
     },
     "Fight brigands entry": {
-        "text": "Voila que l'un d'entre eux se jète sur vous et vous inflige un puissant coup de massue. Arriverez vous à riposter ?",
+        "text": ["Voila que l'un d'entre eux se jète sur vous et vous inflige un puissant coup de massue. Arriverez vous à riposter ?"],
         "choix": [
             { "text": "Oh que oui !", "next": {"roll": {
                 "type": 20,
@@ -127,7 +127,7 @@
         }]
     },
     "Fight brigands": {
-        "text": "\"Prends ça !\" Ouch, c'est un vilain coup qu'on vous assène",
+        "text": ["\"Prends ça !\" Ouch, c'est un vilain coup qu'on vous assène"],
         "choix": [
             { "text": "À mon tour de taper !", "next": {"roll": {
                 "type": 20,
@@ -148,11 +148,15 @@
         "stats": { "hp": {"add": -2} }
     },
     "Fuite brigands": {
-        "text": "Les deux brigands les plus proches de vous se lancent à votre poursuite, mais le plus grand des deux trébuche soudainement sur une branche malcieuse et entraine son camarade dans sa chute.\nVous vous en sortez bien.",
+        "text": ["Les deux brigands les plus proches de vous se lancent à votre poursuite, mais le plus grand des deux trébuche soudainement sur une branche malcieuse et entraine son camarade dans sa chute.\nVous vous en sortez bien."],
         "choix": [{ "text": "Ouf", "next": "Dehors" }]
     },
     "Brigands fight succes": {
-        "text": "Et voila que vous aussi montrez des signes de force. Quel beau coup !",
+        "text": [
+            "Et voila que vous aussi montrez des signes de force. Quel beau coup !",
+            "Votre bras fuse dans l'air et le coup assome sa cible, beau travail.",
+            "Magnifique! le brigand qui vous attaquait est maintenant au sol."
+        ],
         "choix": [{ "text": "continuer", "next": "Fight brigands" }],
         "enemy": [{
             "name": "brigands",
@@ -160,11 +164,15 @@
         }]
     },
     "Brigands fight echec": {
-        "text": "Dites donc, j'en ai vu des meilleures. L'adversaire s'est simplement décalé pour ne pas recevoir votre coup. Attention voila qu'il repasse à l'assaut !",
+        "text": [
+            "Dites donc, j'en ai vu des meilleures. L'adversaire s'est simplement décalé pour ne pas recevoir votre coup. Attention voila qu'il repasse à l'assaut !",
+            "Au dernier moment, l'adversaire oppose son arme à la votre et dévie votre attaque. Il va profiter de vous avoir déstabiliser pour tenter de vous blesser.",
+            "Il est habile, le brigand. Il vous délivre une magnifique parade et se glisse dans votre dos, vous risquez de subir un nouveau coup."
+        ],
         "choix": [{ "text": "continuer", "next": "Fight brigands" }]
     },
     "Brigands fight final": {
-        "text": "\"Non !\"\nVous les avez eu, le dernier est tombé. En les fouillant, vous trouvez 30 pièces d'or, ils n'en ont probablement plus besoin...",
+        "text": ["\"Non !\"\nVous les avez eu, le dernier est tombé. En les fouillant, vous trouvez 30 pièces d'or, ils n'en ont probablement plus besoin..."],
         "choix": [
             { "text": "Je continue mon chemin", "next": "Forêt 2" },
             { "text": "Finalement, je préfère retourner vers l'auberge", "next": "Dehors" }
@@ -174,7 +182,7 @@
         }
     },
     "Forêt 2": {
-        "text": "Cette forêt est un véritable labyrithe... Il y a autant de chemins possibles que de feuilles mortes",
+        "text": ["Cette forêt est un véritable labyrithe... Il y a autant de chemins possibles que de feuilles mortes"],
         "choix": [
             { "text": "Je prends tout à gauche", "next": "Labyrinthe 1" },
             { "text": "Je vais en direction de la bonne odeur", "next": "Labyrinthe 2", "condition": {"stat": {"sag": {"min": 12}}} },
@@ -184,7 +192,7 @@
         ]
     },
     "Labyrinthe 1": {
-        "text": "Plus vous avancez dans la forêt, moins vous avez de chances d'en ressortir.",
+        "text": ["Plus vous avancez dans la forêt, moins vous avez de chances d'en ressortir."],
         "choix": [
             { "text": "Je vais à droite", "next": "Champignons" },
             { "text": "Je vais tout droit", "next": "Labyrinthe 6" },
@@ -192,21 +200,21 @@
         ]
     },
     "Labyrinthe 2": {
-        "text": "Vous arrivez face à une maison de laquelle s'échape une alléchante odeur de chocolat.",
+        "text": ["Vous arrivez face à une maison de laquelle s'échape une alléchante odeur de chocolat."],
         "choix": [
             { "text": "Mhhh, j'entre!", "next": "Maison foret" },
             { "text": "On n'entre pas chez les inconnus voyons", "next": "Labyrinthe 6" }
         ]
     },
     "Labyrinthe 3": {
-        "text": "La forêt se densifie, il y a de moins en moins de lumière.",
+        "text": ["La forêt se densifie, il y a de moins en moins de lumière."],
         "choix": [
             { "text": "Je continue tout droit", "next": "Labyrinthe 8" },
             { "text": "J'essaie de revenir en arrière", "next": "Labyrinthe 2" }
         ]
     },
     "Labyrinthe 4": {
-        "text": "Et maintenant, où allons-nous?",
+        "text": ["Et maintenant, où allons-nous?"],
         "choix": [
             { "text": "Je pars vers la gauche", "next": "Ermite" },
             { "text": "Quels beaux cailoux! Je vais dans leur direction", "next": "Labyrinthe 6" },
@@ -214,21 +222,21 @@
         ]
     },
     "Labyrinthe 5": {
-        "text": "La route est barré par un tronc colossal.",
+        "text": ["La route est barré par un tronc colossal."],
         "choix": [
             { "text": "Je passe à coté du tronc", "next": "Labyrinthe 7" },
             { "text": "Je soulève le tronc et passe derrière", "next": "Labyrinthe 2", "cond": {"stat": {"frc": {"min": 12}}} }
         ]
     },
     "Labyrinthe 6": {
-        "text": "Eh bein, on dirait que vous etes perdu...",
+        "text": ["Eh bein, on dirait que vous etes perdu..."],
         "choix": [
             { "text": "C'est pas grave je continue", "next": "Labyrinthe 8" },
             { "text": "Je décide de contourner l'arbuste", "next": "Labyrinthe 1" }
         ]
     },
     "Labyrinthe 7": {
-        "text": "Vous arrivez face à un massif rocheux",
+        "text": ["Vous arrivez face à un massif rocheux"],
         "choix": [
             { "text": "Je vais vers les grottes", "next": "Ours" },
             { "text": "Je le longe par l'Est", "next": "Trésor 1" },
@@ -236,47 +244,47 @@
         ]
     },
     "Labyrinthe 8": {
-        "text": "J'ai l'impression que vous tournez en rond...",
+        "text": ["J'ai l'impression que vous tournez en rond..."],
         "choix": [
             { "text": "Je pars à droite", "next": "Forêt 2" },
             { "text": "J'essaie plutôt à gauche", "next": "Forêt 2" }
         ]
     },
     "Maison foret": {
-        "text": "",
+        "text": [""],
         "choix": []
     },
     "Champignons": {
-        "text": "En continuant votre randonnée, vous découvrez une colonie de petits champignons.",
+        "text": ["En continuant votre randonnée, vous découvrez une colonie de petits champignons."],
         "choix": [{ "text": "J'en ramasse et continue mon chemin", "next": "Labyrinthe 6" }],
         "inventory": [{ "give": "🍄" }]
     },
     "Ours": {
-        "text": "",
+        "text": [""],
         "choix": []
     },
     "Trésor 1": {
-        "text": "En marchant, vous remarquez un petit tas de pierre",
+        "text": ["En marchant, vous remarquez un petit tas de pierre"],
         "choix": [
             { "text": "Je vais voir plus en détails", "next": "Trésor 2" },
             { "text": "Je passe mon chemin, pas de temps à perdre.", "next": "" }
         ]
     },
     "Trésor 2": {
-        "text": "Vous remuez un peu les pierres et parvenez à en sortir un petit coffre de bois qui y était caché. Après l'avoir ouvert, vos yeux s'illuminent: c'est un véritable trésore que voila!",
+        "text": ["Vous remuez un peu les pierres et parvenez à en sortir un petit coffre de bois qui y était caché. Après l'avoir ouvert, vos yeux s'illuminent: c'est un véritable trésore que voila!"],
         "choix": [{ "text": "Je prends tout!", "next": "Lisière" }],
         "inventory": [{ "give": "💎" }],
         "stats": [{ "po": {"add": 100} }]
     },
     "Lisière": {
-        "text": "Ah! vous revoila en lisière de forêt. Vous appercevez même la fumée des cheminées de l'auberge à l'horizon",
+        "text": ["Ah! vous revoila en lisière de forêt. Vous appercevez même la fumée des cheminées de l'auberge à l'horizon"],
         "choix": [
             { "text": "Je n'ai pas fini d'explorer, j'y retourne.", "next": "Forêt 2" },
             { "text": "Quel soulagement, je rentre au coin du feu.", "next": "Dehors" }
         ]
     },
     "Ermite": {
-        "text": "",
+        "text": [""],
         "choix": []
     }
 }

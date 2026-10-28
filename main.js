@@ -222,10 +222,11 @@ function resolvenode(nodeName, restaurer = false) {
     const waitingP = document.createElement('p');
     waitingP.classList.add('MJ-text');
     waitingP.innerText = '...';
-    main.appendChild(waitingP)
+    main.appendChild(waitingP);
+    const text = choice(node.text);
     setTimeout(() => {
         main.removeChild(waitingP);
-        sendMessage('text', node.text, 'MJ', true);
+        sendMessage('text', text, 'MJ', true);
         setTimeout(() => {
             if (node.stats) {
                 appliquerModificationsStats(node.stats);
@@ -245,8 +246,8 @@ function resolvenode(nodeName, restaurer = false) {
                 }
             });
             save(nodeName);
-        }, node.text.length * writingTime);
-    }, node.text.length * thikingTime);
+        }, text.length * writingTime);
+    }, text.length * thikingTime);
 }
 
 function playRollAnim(roll) {
@@ -426,6 +427,11 @@ function getModif(stat) {
         return getModif(stats[stat]);
     }
     console.error('stat est de type inconnu');
+}
+
+function choice(arr) {
+    const index = Math.floor(Math.random() * arr.length);
+    return arr[index];
 }
 
 function save(currentnode) {
