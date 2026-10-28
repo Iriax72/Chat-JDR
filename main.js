@@ -64,8 +64,10 @@ fetch('../nodes.json')
         nodes = donnees;
         historique.forEach(message => {
             const p = document.createElement('p');
-            p.innerText = message.text;
             p.classList.add(message.from === 'player' ? 'player-text' : 'MJ-text');
+            p.innerHTML = message.type === 'text' ? message.message
+                : message.type = 'dice' ? createHTMLDice(message.message)
+                : 'Erreur, type de message inconnu'
             main.appendChild(p);
         });
         resolvenode(currentnode, localStorage.getItem('currentnode') !== null)
@@ -116,29 +118,55 @@ function openPopup(listContent, popupName, className) {
     document.body.appendChild(d);
 }
 
-function sendMessage(message, from, sendEffect = false) {
-    historique.push({from: from, text: message});
-    const p = document.createElement('p');
-    p.classList.add(from+'-text');
-    if (sendEffect) {
-        p.innerText = "";
-        main.appendChild(p);
-        for (let i = 0; i < message.length; i++) {
-            setTimeout(() => {
-                p.innerText = message.slice(0, i+1);
-            }, i * writingTime);
+function sendMessage(type, message, from, sendEffect = false) {
+    if (type === 'text') {
+        historique.push({type: type, from: from, message: message});
+        const p = document.createElement('p');
+        p.classList.add(from+'-text');
+        if (sendEffect) {
+            p.innerText = "";
+            main.appendChild(p);
+            for (let i = 0; i < message.length; i++) {
+                setTimeout(() => {
+                    p.innerText = message.slice(0, i+1);
+                }, i * writingTime);
+            }
+        } else {
+            p.innerText = message;
+            main.appendChild(p);
+        }
+    } else if (type === 'dice') {
+        historique.push({type: type, message: message, from: from});
+        const p = document.createElement('p');
+        p.classList.add(from + '-text');
+        if (sendEffect) {
+            // TODO
+        } else {
+            p.appendChild(createHTMLDice(message));
+            main.appendChild(p);
         }
     } else {
-        p.innerText = message;
-        main.appendChild(p);
+        console.error('type de message incconu');
     }
+}
+
+function createHTMLDice(content = '') {
+    const diceContainer = document.createElement('div');
+    diceContainer.classList.add('dice-container');
+    const dice = diceImg.cloneNode();
+    dice.removeAttribute('id');
+    const span = document.createElement('span');
+    span.textContent = content;
+    diceContainer.appendChild(dice);
+    diceContainer.appendChild(span);
+    return diceContainer;
 }
 
 function propose(text, next) {
     const btn = document.createElement('button');
     btn.innerText = text;
     btn.addEventListener('click', () => {
-        sendMessage(text, 'player');
+        sendMessage('text', text, 'player');
         if (typeof next === 'string') {
             resolvenode(next);
         } else if (
@@ -172,7 +200,7 @@ function resolvenode(nodeName, restaurer = false) {
     main.appendChild(waitingP)
     setTimeout(() => {
         main.removeChild(waitingP);
-        sendMessage(node.text, 'MJ', true);
+        sendMessage('text', node.text, 'MJ', true);
         setTimeout(() => {
             if (node.stats) {
                 appliquerModificationsStats(node.stats);
