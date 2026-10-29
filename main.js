@@ -22,6 +22,7 @@ const rollTime = 3200; // [ms]
 const rollInterval = 125; // [ms]
 
 // Initialisation
+let isDead = false;
 let currentnode = localStorage.getItem('currentnode') ?? 'start';
 const historique = JSON.parse(localStorage.getItem('historique')) ?? [];
 const inventory = JSON.parse(localStorage.getItem('inventory')) ?? ['🗡️', '📝', '🧳'];
@@ -241,6 +242,10 @@ function resolvenode(nodeName, restaurer = false) {
             if (node.enemy) {
                 appliquerModifEnemys(node.enemy);
             }
+            if (isDead) {
+                resolvenode('Mort');
+                return;
+            }
             node.choix.forEach(choix => {
                 if (condition_ok(choix.condition)) {
                     propose(choix.text, choix.next);
@@ -414,8 +419,7 @@ function updateStat(stat, value) {
     stats[stat] = value;
     if (stat === 'hp') {
         if (value <= 0) {
-            footer.innerHTML = "",
-            propose("continuer", "Mort");
+            isDead = true;
         }
         statsSpan[stat].innerText = Math.max(value, 0) + '/20';
         return;
