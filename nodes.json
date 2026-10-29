@@ -123,7 +123,7 @@
         "stats": { "hp": {"add": -2} },
         "enemy": [{
             "name": "brigands",
-            "hp": 4
+            "hp": 5
         }]
     },
     "Fight brigands": {
@@ -242,7 +242,8 @@
     "Labyrinthe 7": {
         "text": ["Vous arrivez face à un massif rocheux"],
         "choix": [
-            { "text": "Je vais vers les grottes", "next": "Ours" },
+            { "text": "Je vais vers les grottes", "next": "Ours" , "condition": {"enemy": {"name": "ours", "hp": {"min": 1}}} },
+            { "text": "Je vais vers les grottes", "next": "Grottes", "condition": {"enemy": {"name": "ours", "hp": {"max": 0}}} },
             { "text": "Je le longe par l'Est", "next": "Trésor 1" },
             { "text": "Je le longe par l'Ouest", "next": "Lisière" }
         ]
@@ -255,17 +256,130 @@
         ]
     },
     "Maison foret": {
-        "text": [""],
-        "choix": []
+        "text": ["En entrant dans la maison, vous êtrs immédiatement frappé par la quantité de poussière éceurante. À cela s'ajoute une odeur humide de renfermé. Aucun doute, personne n'est entré ici depuis bien longtemps"],
+        "choix": [
+            { "text": "Je ressort, immédiatement", "next": "Maison sortie" },
+            { "text": "Je vais lire le texte sur le bureau", "next": "Maison journal" },
+            { "text": "Je fouille vers la cheminée", "next": "Maison cheminée" },
+            { "text": "Je regarde sous le lit", "next": "Maison lit" }
+        ]
+    },
+    "Maison journal": {
+        "text": ["412.08.31\nAujourd'hui Rebec a disparu. Je pense qu'il s'est aussi faut avoir. Maris est peruadée du contraire, elle mène sans relache des expéditions de sauvetage.\n\n418.08.31\nLes commerçants sont passé. Il était temps, la pénurie d'huile d'hirbène était vraiment insoutenable, et le stock de poudre de slatt commençait à sépuiser.\n\n422.08.31\nAujourd'hui des chevalier du Royaume nous ont rendu visite, l'envahisseur à franchi la porte de Hall. Je vais bientôt devoir rejoindre les soldats\n\n423.08.31\nC'est officiel, je pars à l'Ouest rejoindre la défense au mur. Je ne suis pas sûr de revenir de sitôt."],
+        "choix": [
+            { "text": "Intéressant...", "next": "Maison foret" }
+        ]
+    },
+    "Maison cheminée": {
+        "text": ["La cheminée semble être tout ce qu'il y a de plus normal pour une cheminée: un petit meuble sous lequel repose un tas de cendres."],
+        "choix": [
+            { "text": "Ah, ok. Je vais voir ailleur", "next": "Maison foret" },
+            { "text": "Je farfouille parmis les cendres", "next": "Maison cendres", "condition": [{
+                "stat": {"sag": {"min": 16}}
+            }] }
+        ]
+    },
+    "Maison cendres": {
+        "text": "Quel instinct ! Vous trouvez parmis les cendres une magnifique tiare d'or certie de pierres précieuses. Elle doit valoir une belle somme.",
+        "choix": [{ "text": "Magnifique !", "next": "Maison foret" }],
+        "inventory": { "give": "👑" }
+    },
+    "Maison lit": {
+        "text": ["Vous trouvez quelques flacons de liquide inconnu, il est relativement gras et sens plutôt bon."],
+        "choix": [{ "text": "cool !", "next": "Maison foret" }],
+        "inventory": [{ "give": "🫙" }]
+    },
+    "Maison sortie": {
+        "text": ["Bon, où allez vous maintenant, la forêt est toujours aussi dense"],
+        "choix": [
+            { "text": "Je retourne en arrière, là d'où je viens", "next": "Labyrinthe 3" },
+            { "text": "Le continue ma route vers le Nord", "next": "Labyrinthe 7" }
+        ]
     },
     "Champignons": {
         "text": ["En continuant votre randonnée, vous découvrez une colonie de petits champignons."],
         "choix": [{ "text": "J'en ramasse et continue mon chemin", "next": "Labyrinthe 6" }],
         "inventory": [{ "give": "🍄" }]
     },
+    "Grottes": {
+        "text": ["Excepté une énorme carcasse d'ours, la grotte est vide"],
+        "choix": [{ "text": "Je sors donc.", "next": "Labyrinthe 7" }]
+    },
     "Ours": {
+        "text": ["En vous prommenant, vous êtes surpris par un ours monstrueux qui ne demande qu'à se nourrir. Il va sans dire que toute tentative de fuite serait vaine face à ce géant poilu."],
+        "choix": [{ "text": "Je suis prêt à me battre", "next": "Fight ours entry" }]
+    },
+    "Fight ours entry": {
+        "text": ["Sans attendre, l'ours fond sur vous et vous griffe de manière fulgurente. C'est un adversaire de taille que vous rencontrez là."],
+        "choix": [{
+            "text": "Je riposte d'un coup d'épée",
+            "next": {"roll": {
+                "type": 20,
+                "DD": 13,
+                "modif": "frc",
+                "next (success)": "Fight ours succes",
+                "next (echec)": "Fight ours echec"
+            }}
+        }],
+        "enemy": [{
+            "name": "ours",
+            "hp": 2
+        }]
+    },
+    "Fight ours": {
         "text": [""],
-        "choix": []
+        "choix": [
+            {"text": "Je continue avec un nouveau coup", "next": {"roll": {
+                "type": 20,
+                "DD": 13,
+                "modif": "frc",
+                "next (success)": "Fight ours succes",
+                "next (echec)": "Fight ours echec"
+            }}, "condition": { "enemy": { "name": "ours", "hp": {"min": 2} } }},
+            {"text": "Je continue avec un nouveau coup", "next": {"roll": {
+                "type": 20,
+                "DD": 13,
+                "modif": "frc",
+                "next (success)": "Fight ours final",
+                "next (echec)": "Fight ours echec"
+            }}, "condition": { "enemy": {"name": "ours", "hp": {"max": 1}} } }
+        ],
+        "stats": { "hp": {"add": -4} }
+    },
+    "Fight ours success": {
+        "text": [
+            "Excellent ! Vous l'avez atteint en pleine pointrine. Attention, le voila qui repasse à la charge!",
+            "Magnifique ! Le coup sous l'aissaile que vous venez de lui infligez le fait souffir. Il n'est plus très loin de s'effondrer",
+            "Incroyable ! Frappé au visage, l'ours ensanglanté rugit à plein poumons. Il ne va pas pour autant vous laisser partir ainsi."
+        ],
+        "choix": [{ "text": "continuer", "next": "Fight ours" }],
+        "enemy": [{
+            "name": "ours",
+            "hp": {"add": -1}
+        }]
+    },
+    "Fight ours echec": {
+        "text": [
+            "L'ours encaisse le coup comme s'il n'en était rien, en plus le voila qui reprend son assaut.",
+            "Votre vaine tentative ne fait qu'attiser sa faim, il se rue une nouvelle fois sur vous.",
+            "La bête n'a cure de vos agissements, il encaisse le coup sans broncher et vous contraint à reculer."
+        ],
+        "choix": [
+            { "text": "continuer", "next": "Fight ours" },
+            { "text": "J'essaie de prendre la fuite", "next": "Fight ours fuite" }
+        ]
+    },
+    "Fight ours fuite": {
+        "text": ["Je vous avais dit que c'était une mauvaise idée! La bête profite de l'instant où vous lui tournez le dos pour vous sauter dessus par derrière. Il ne fera qu'une bouchée de vous."],
+        "stats": { "hp": 0 }
+    },
+    "Fight ours final": {
+        "text": ["Chancelant sous votre coup, la bête s'effondre à vos pieds. Vous êtes épuisés mais vous êtes à présent un guerrier redoutable!"],
+        "choix": [
+            {"text": "Je me repause quelques instants et continue", "next": "Labyrinthe 1"}
+        ],
+        "stats": { "frc": {"add": 3} },
+        "inventory": {"give": "🥩"}
     },
     "Trésor 1": {
         "text": ["En marchant, vous remarquez un petit tas de pierre"],
