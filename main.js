@@ -28,7 +28,8 @@ const inventory = JSON.parse(localStorage.getItem('inventory')) ?? ['🗡️', '
 const journal = JSON.parse(localStorage.getItem('journal')) ?? [];
 
 const enemysHp = JSON.parse(localStorage.getItem('enemysHp')) ?? {
-    "brigands": 4
+    "brigands": 4,
+    "ours": 2
 }
 
 const statsParDefaut = {
