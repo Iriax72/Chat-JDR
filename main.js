@@ -362,6 +362,10 @@ function appliquerModificationsStats(modifications) {
 }
 
 function appliquerModif(modifs, list) {
+    if (typeof modifs === 'Array' && modifs.length === 0) {
+        list = [];
+        return;
+    }
     const ret = list;
     modifs.forEach(modification => {
         Object.entries(modification).forEach(([action, objet]) => {
@@ -409,6 +413,10 @@ function appliquerModifEnemys(modifs) {
 function updateStat(stat, value) {
     stats[stat] = value;
     if (stat === 'hp') {
+        if (value <= 0) {
+            footer.innerHTML = "",
+            propose("continuer", "Mort");
+        }
         statsSpan[stat].innerText = Math.max(value, 0) + '/20';
         return;
     }

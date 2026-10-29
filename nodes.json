@@ -3,6 +3,11 @@
         "text": ["todo"],
         "choix": [{ "text": "recommencer", "next": "start" }]
     },
+    "Mort": {
+        "text": "Vous êtes mort",
+        "choix": [{ "text": "Recommencer", "next": "start" }]
+    },
+
     "start": {
         "text": ["L'auberge du Dragon d'or est le lieu de prédilexion des marchants, explorateurs et voyageurs de tous types. Reliant la cité de Westelle au chateau d'Estillon, c'est un point stratégique pour commercer et faire de bons contacts."],
         "choix": [
@@ -16,7 +21,9 @@
             "po": 5,
             "frc": 8,
             "sag": 8
-        }
+        },
+        "inventory": [[]],
+        "journal": [[]]
     },
     "Barman": {
         "text": ["Bonsoir voyageur, qu'est ce que je vous sers ?"],
@@ -367,7 +374,7 @@
         "text": [
             "L'ours encaisse le coup comme s'il n'en était rien, en plus le voila qui reprend son assaut.",
             "Votre vaine tentative ne fait qu'attiser sa faim, il se rue une nouvelle fois sur vous.",
-            "La bête n'a cure de vos agissements, il encaisse le coup sans broncher et vous contraint à reculer."
+            "La bête n'a cure de vos agissements, elle encaisse le coup sans broncher et vous contraint à reculer."
         ],
         "choix": [
             { "text": "continuer", "next": "Fight ours" },
@@ -375,7 +382,7 @@
         ]
     },
     "Fight ours fuite": {
-        "text": ["Je vous avais dit que c'était une mauvaise idée! La bête profite de l'instant où vous lui tournez le dos pour vous sauter dessus par derrière. Il ne fera qu'une bouchée de vous."],
+        "text": ["Je vous avais dit que c'était une mauvaise idée! La bête profite de l'instant où vous lui tournez le dos pour vous sauter dessus par derrière. Elle ne fera qu'une bouchée de vous."],
         "stats": { "hp": 0 }
     },
     "Fight ours final": {
