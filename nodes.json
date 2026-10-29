@@ -229,7 +229,7 @@
         "text": ["La route est barré par un tronc colossal."],
         "choix": [
             { "text": "Je passe à coté du tronc", "next": "Labyrinthe 7" },
-            { "text": "Je soulève le tronc et passe derrière", "next": "Labyrinthe 2", "cond": {"stat": {"frc": {"min": 12}}} }
+            { "text": "Je soulève le tronc et passe derrière", "next": "Labyrinthe 2", "condition": {"stat": {"frc": {"min": 12}}} }
         ]
     },
     "Labyrinthe 6": {
