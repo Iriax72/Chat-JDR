@@ -324,10 +324,15 @@
         "enemy": [{
             "name": "ours",
             "hp": 2
-        }]
+        }],
+        "stats": { "hp": {"add": -5} }
     },
     "Fight ours": {
-        "text": [""],
+        "text": [
+            "Agrémeté d'un grognement assourdissant, le monstre vous frappe de ses pattes puissante et vous propulse sur quelques mètres",
+            "D'un coup de dent, l'ours vous arrache toute une partie de peau. Allons, il faut continuer malgré la douleur !",
+            "La bête fond sur vous et vous écrase sous son poids. Tenez bon!"
+        ],
         "choix": [
             {"text": "Je continue avec un nouveau coup", "next": {"roll": {
                 "type": 20,
