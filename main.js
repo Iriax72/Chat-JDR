@@ -452,6 +452,12 @@ function getModif(stat) {
 }
 
 function choice(arr) {
+    if (typeof arr === 'string') {
+        return arr;
+    }
+    if (!Array.isArray(arr) || arr.length === 0) {
+        return '';
+    }
     const index = Math.floor(Math.random() * arr.length);
     return arr[index];
 }

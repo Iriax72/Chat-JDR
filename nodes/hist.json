@@ -10,15 +10,15 @@
             "sag": 8,
             "po": 5
         },
-        "inventory": [[]],
-        "journal": [[]]
+        "inventory": [],
+        "journal": []
     },
     "TODO": {
         "text": ["todo"],
         "choix": [{ "text": "recommencer", "next": "start" }]
     },
     "Mort": {
-        "text": "Vous êtes mort",
+        "text": ["Vous êtes mort"],
         "choix": [{ "text": "Recommencer", "next": "start" }]
     },
 
@@ -36,8 +36,8 @@
             "frc": 8,
             "sag": 8
         },
-        "inventory": [[]],
-        "journal": [[]]
+        "inventory": [],
+        "journal": []
     },
     "Barman": {
         "text": ["Bonsoir voyageur, qu'est ce que je vous sers ?"],
@@ -295,15 +295,15 @@
         "text": ["La cheminée semble être tout ce qu'il y a de plus normal pour une cheminée: un petit meuble sous lequel repose un tas de cendres."],
         "choix": [
             { "text": "Ah, ok. Je vais voir ailleur", "next": "Maison foret" },
-            { "text": "Je farfouille parmis les cendres", "next": "Maison cendres", "condition": [{
+            { "text": "Je farfouille parmis les cendres", "next": "Maison cendres", "condition": {
                 "stat": {"sag": {"min": 16}}
-            }] }
+            } }
         ]
     },
     "Maison cendres": {
-        "text": "Quel instinct ! Vous trouvez parmis les cendres une magnifique tiare d'or certie de pierres précieuses. Elle doit valoir une belle somme.",
+        "text": ["Quel instinct ! Vous trouvez parmis les cendres une magnifique tiare d'or certie de pierres précieuses. Elle doit valoir une belle somme."],
         "choix": [{ "text": "Magnifique !", "next": "Maison foret" }],
-        "inventory": { "give": "👑" }
+        "inventory": [{ "give": "👑" }]
     },
     "Maison lit": {
         "text": ["Vous trouvez quelques flacons de liquide inconnu, il est relativement gras et sens plutôt bon."],
@@ -405,7 +405,7 @@
             {"text": "Je me repause quelques instants et continue", "next": "Labyrinthe 1"}
         ],
         "stats": { "frc": {"add": 3} },
-        "inventory": {"give": "🥩"}
+        "inventory": [{"give": "🥩"}]
     },
     "Trésor 1": {
         "text": ["En marchant, vous remarquez un petit tas de pierre"],
@@ -418,7 +418,7 @@
         "text": ["Vous remuez un peu les pierres et parvenez à en sortir un petit coffre de bois qui y était caché. Après l'avoir ouvert, vos yeux s'illuminent: c'est un véritable trésore que voila!"],
         "choix": [{ "text": "Je prends tout!", "next": "Lisière" }],
         "inventory": [{ "give": "💎" }],
-        "stats": [{ "po": {"add": 100} }]
+        "stats": { "po": {"add": 100} }
     },
     "Lisière": {
         "text": ["Ah! vous revoila en lisière de forêt. Vous appercevez même la fumée des cheminées de l'auberge à l'horizon"],
