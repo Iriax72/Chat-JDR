@@ -15,6 +15,31 @@ const mapBtn = document.querySelector('#map');
 const mapImg = document.querySelector('#map-img');
 const diceImg = document.querySelector('#dice-img');
 
+const defaultInventory = ['🗡️', '📝', '🧳'];
+const defaultEnemysHp = {
+    "brigands": 4,
+    "ours": 2,
+    "gobelin_1": 2,
+    "gobelin_2": 2,
+    "gobelin_3": 3,
+    "chef_gobelin": 6,
+    "dragon": 10
+};
+
+function safeReadJSON(key, fallback) {
+    const raw = localStorage.getItem(key);
+    if (raw === null) {
+        return fallback;
+    }
+    try {
+        const parsed = JSON.parse(raw);
+        return parsed === null ? fallback : parsed;
+    } catch (error) {
+        console.warn(`Données locales invalides pour ${key}:`, error);
+        return fallback;
+    }
+}
+
 // Valeurs arbitraires
 const writingTime = 30; // [ms/char]
 const thikingTime = 10; // [ms/char]
@@ -24,19 +49,11 @@ const rollInterval = 125; // [ms]
 // Initialisation
 let isDead = false;
 let currentNode = localStorage.getItem('currentNode') ?? 'start';
-const historique = JSON.parse(localStorage.getItem('historique')) ?? [];
-const inventory = JSON.parse(localStorage.getItem('inventory')) ?? ['🗡️', '📝', '🧳'];
-const journal = JSON.parse(localStorage.getItem('journal')) ?? [];
+const historique = Array.isArray(safeReadJSON('historique', [])) ? safeReadJSON('historique', []) : [];
+const inventory = Array.isArray(safeReadJSON('inventory', defaultInventory)) ? safeReadJSON('inventory', defaultInventory) : defaultInventory;
+const journal = Array.isArray(safeReadJSON('journal', [])) ? safeReadJSON('journal', []) : [];
 
-const enemysHp = JSON.parse(localStorage.getItem('enemysHp')) ?? {
-    "brigands": 4,
-    "ours": 2,
-    "gobelin_1": 2,
-    "gobelin_2": 2,
-    "gobelin_3": 3,
-    "chef_gobelin": 6,
-    "dragon": 10
-}
+const enemysHp = { ...defaultEnemysHp, ...safeReadJSON('enemysHp', defaultEnemysHp) };
 
 const statsParDefaut = {
     po: 5,
@@ -44,7 +61,7 @@ const statsParDefaut = {
     frc: 8,
     sag: 8,
 };
-const statsStockees = JSON.parse(localStorage.getItem('stats'));
+const statsStockees = safeReadJSON('stats', null);
 const stats = {
     ...statsParDefaut,
     ...(statsStockees && typeof statsStockees === 'object' && !Array.isArray(statsStockees)
@@ -53,13 +70,34 @@ const stats = {
 };
 Object.keys(statsParDefaut).forEach(stat => updateStat(stat, stats[stat]));
 
-crossBtn.addEventListener('click', () => {
+function resetGameState() {
     localStorage.removeItem('currentNode');
     localStorage.removeItem('historique');
     localStorage.removeItem('inventory');
     localStorage.removeItem('journal');
     localStorage.removeItem('enemysHp');
     localStorage.removeItem('stats');
+
+    isDead = false;
+    currentNode = 'start';
+    historique.length = 0;
+    inventory.splice(0, inventory.length, ...defaultInventory);
+    journal.length = 0;
+    Object.keys(enemysHp).forEach(key => delete enemysHp[key]);
+    Object.assign(enemysHp, defaultEnemysHp);
+    Object.keys(statsParDefaut).forEach(stat => {
+        stats[stat] = statsParDefaut[stat];
+        updateStat(stat, stats[stat]);
+    });
+    if (main) main.innerHTML = '';
+    if (footer) footer.innerHTML = '';
+    if (nodes && Object.prototype.hasOwnProperty.call(nodes, currentNode)) {
+        resolveNode(currentNode);
+    }
+}
+
+crossBtn.addEventListener('click', () => {
+    resetGameState();
 })
 
 // Obtenir les nodes a partie de nodes.json
@@ -223,7 +261,7 @@ function resolveNode(nodeName, restaurer = false) {
     const node = nodes[nodeName];
     if (restaurer) {
         node.choix.forEach(choix => {
-            if (condition_ok(choix)) {
+            if (condition_ok(choix.condition)) {
                 propose(choix.text, choix.next);
             }
         });
@@ -296,6 +334,13 @@ function playRollAnim(roll) {
 
 function condition_ok(condition) {
     if (!condition) return true;
+    if (Array.isArray(condition)) {
+        return condition.every(singleCondition => condition_ok(singleCondition));
+    }
+    if (typeof condition !== 'object') {
+        console.error('Condition non évaluable');
+        return false;
+    }
     return Object.entries(condition).every(([condType, cond]) => {
         if (condType === 'inventory') {
             return inventory.includes(cond);
@@ -304,49 +349,70 @@ function condition_ok(condition) {
             return journal.includes(cond);
         }
         if (condType === 'enemy') {
+            if (!cond || typeof cond !== 'object') {
+                console.error('Condition enemy invalide');
+                return false;
+            }
+            const enemyName = cond.name;
+            const enemyHp = enemyName && Object.prototype.hasOwnProperty.call(enemysHp, enemyName)
+                ? enemysHp[enemyName]
+                : 0;
             const hp = cond.hp;
             if (typeof hp === 'number') {
-                return enemysHp[cond.name] === hp;
-            } else if (typeof hp === 'object' && Object.keys(hp).length === 1) {
-                if (Object.keys(hp)[0] === 'min') {
-                    return hp.min <= stats.hp
-                } else if (Object.keys(hp)[0] === 'max') {
-                    return hp.max >= stats.hp
-                } else {
-                    console.error("clé de cond.enemy.hp inconnue");
-                }
-            } else {
-                console.error('type de cond.enemy.hp inconnu');
+                return enemyHp === hp;
             }
+            if (hp && typeof hp === 'object' && !Array.isArray(hp)) {
+                const keys = Object.keys(hp);
+                if (keys.length !== 1) {
+                    console.error('Condition enemy.hp invalide');
+                    return false;
+                }
+                const key = keys[0];
+                if (key === 'min') {
+                    return Number(hp.min) <= enemyHp;
+                }
+                if (key === 'max') {
+                    return Number(hp.max) >= enemyHp;
+                }
+                console.error('clé de cond.enemy.hp inconnue');
+                return false;
+            }
+            console.error('type de cond.enemy.hp inconnu');
+            return false;
         }
-        if (condType === "stat") {
+        if (condType === 'stat') {
+            if (!cond || typeof cond !== 'object') {
+                console.error('Condition stats invalide');
+                return false;
+            }
             return Object.entries(cond).every(([stat, value]) => {
                 if (!Object.prototype.hasOwnProperty.call(stats, stat)) {
                     return false;
                 }
-                if (typeof value === "number") {
+                if (typeof value === 'number') {
                     return value === stats[stat];
-                } else if (
-                    typeof value === "object"
-                    && value.length === 1
-                    && typeof Object.values(value)[0] === 'number'
-                ) {
-                    const key = Object.keys(value)[0];
-                    if (key === 'min') {
-                        return value.min <= stats[stat];
-                    } else if (key === 'max') {
-                        return value.max >= stats[stat];
-                    } else {
-                        console.error('la valeur est illisible');
+                }
+                if (value && typeof value === 'object' && !Array.isArray(value)) {
+                    const keys = Object.keys(value);
+                    if (keys.length !== 1) {
+                        console.error('condition stat illisible');
                         return false;
                     }
-                } else {
-                    console.error('condition non évaluable');
+                    const key = keys[0];
+                    if (key === 'min') {
+                        return Number(value.min) <= stats[stat];
+                    }
+                    if (key === 'max') {
+                        return Number(value.max) >= stats[stat];
+                    }
+                    console.error('la valeur est illisible');
                     return false;
                 }
+                console.error('condition non évaluable');
+                return false;
             });
         }
-        console.error(`Condition inconnue dans nodes.json`);
+        console.error(`Condition inconnue dans nodes.json : ${condType}`);
         return false;
     });
 }
@@ -376,35 +442,41 @@ function appliquerModificationsStats(modifications) {
 }
 
 function appliquerModif(modifs, list) {
-    if (typeof modifs === 'Array' && modifs.length === 0) {
-        list = [];
-        return;
+    if (!Array.isArray(modifs)) {
+        return list;
     }
-    const ret = list;
+    if (modifs.length === 0) {
+        list.splice(0, list.length);
+        return list;
+    }
     modifs.forEach(modification => {
+        if (!modification || typeof modification !== 'object') {
+            return;
+        }
         Object.entries(modification).forEach(([action, objet]) => {
             if (action === 'give') {
-                if (!ret.includes(objet)) {
-                    ret.push(objet);
+                if (!list.includes(objet)) {
+                    list.push(objet);
                     if (objet === '🗺️') {
                         mapBtn.classList.remove('hidden');
                     }
                 }
-                return ret;
+                return;
             }
             if (action === 'remove') {
-                const index = ret.indexOf(objet);
+                const index = list.indexOf(objet);
                 if (index !== -1) {
-                    ret.splice(index, 1);
+                    list.splice(index, 1);
                     if (objet === '🗺️') {
                         mapBtn.classList.add('hidden');
                     }
                 }
-                return ret;
+                return;
             }
             console.error(`Action de modification de l'inventaire inconnue : ${action}`);
         });
     });
+    return list;
 }
 
 function appliquerModifEnemys(modifs) {
@@ -425,30 +497,37 @@ function appliquerModifEnemys(modifs) {
 }
 
 function updateStat(stat, value) {
-    stats[stat] = value;
+    if (!Object.prototype.hasOwnProperty.call(stats, stat)) {
+        console.error(`Stat inconnue : ${stat}`);
+        return;
+    }
+    const safeValue = Number.isFinite(value) ? value : stats[stat] ?? 0;
+    stats[stat] = safeValue;
     if (stat === 'hp') {
-        if (value <= 0) {
+        if (safeValue <= 0) {
             isDead = true;
         }
-        statsSpan[stat].innerText = Math.max(value, 0) + '/20';
+        statsSpan[stat].innerText = Math.max(safeValue, 0) + '/20';
         return;
     }
     if (stat === 'po') {
-        statsSpan[stat].innerText = Math.max(value, 0);
+        statsSpan[stat].innerText = Math.max(safeValue, 0);
         return;
     }
-    let modif = getModif(value);
+    let modif = getModif(safeValue);
     modif = modif >= 0 ? '+' + modif : modif;
-    statsSpan[stat].innerText = Math.max(value, 0) + ' (' + modif + ')';
+    statsSpan[stat].innerText = Math.max(safeValue, 0) + ' (' + modif + ')';
 }
 
 function getModif(stat) {
-    if (typeof stat === 'number') {
-        return Math.floor((stat-10) / 2);
-    } else if (typeof stat === 'string' && Object.keys(stats).includes(stat)) {
+    if (typeof stat === 'number' && Number.isFinite(stat)) {
+        return Math.floor((stat - 10) / 2);
+    }
+    if (typeof stat === 'string' && Object.prototype.hasOwnProperty.call(stats, stat)) {
         return getModif(stats[stat]);
     }
     console.error('stat est de type inconnu');
+    return 0;
 }
 
 function choice(arr) {
