@@ -23,14 +23,19 @@ const rollInterval = 125; // [ms]
 
 // Initialisation
 let isDead = false;
-let currentnode = localStorage.getItem('currentnode') ?? 'start';
+let currentNode = localStorage.getItem('currentNode') ?? 'start';
 const historique = JSON.parse(localStorage.getItem('historique')) ?? [];
 const inventory = JSON.parse(localStorage.getItem('inventory')) ?? ['🗡️', '📝', '🧳'];
 const journal = JSON.parse(localStorage.getItem('journal')) ?? [];
 
 const enemysHp = JSON.parse(localStorage.getItem('enemysHp')) ?? {
     "brigands": 4,
-    "ours": 2
+    "ours": 2,
+    "gobelin_1": 2,
+    "gobelin_2": 2,
+    "gobelin_3": 3,
+    "chef_gobelin": 6,
+    "dragon": 10
 }
 
 const statsParDefaut = {
@@ -49,7 +54,7 @@ const stats = {
 Object.keys(statsParDefaut).forEach(stat => updateStat(stat, stats[stat]));
 
 crossBtn.addEventListener('click', () => {
-    localStorage.removeItem('currentnode');
+    localStorage.removeItem('currentNode');
     localStorage.removeItem('historique');
     localStorage.removeItem('inventory');
     localStorage.removeItem('journal');
@@ -60,7 +65,7 @@ crossBtn.addEventListener('click', () => {
 // Obtenir les nodes a partie de nodes.json
 // Et lancer la partie
 let nodes = {};
-fetch('../nodes.json')
+fetch('../nodes/hist.json')
     .then(reponse => reponse.json())
     .then(donnees => {
         nodes = donnees;
@@ -73,7 +78,11 @@ fetch('../nodes.json')
             );
             main.appendChild(p);
         });
-        resolvenode(currentnode, localStorage.getItem('currentnode') !== null)
+        const historicExists = localStorage.getItem('currentNode') !== null;
+        if (!historicExists) {
+            resolveNode('setup');
+        }
+        resolveNode(currentNode, historicExists);
     })
     .catch(error => {
         console.error("Erreur de chargement :", error);
@@ -186,7 +195,7 @@ function propose(text, next) {
         footer.innerHTML = '';
         sendMessage('text', text, 'player');
         if (typeof next === 'string') {
-            resolvenode(next);
+            resolveNode(next);
         } else if (
             typeof next === 'object'
             && Object.keys(next).length === 1
@@ -198,9 +207,9 @@ function propose(text, next) {
             sendMessage('dice', diceResult, 'player', true);
             setTimeout(() => {
                 if (diceResult + modif >= roll.DD) {
-                    resolvenode(roll['next (success)']);
+                    resolveNode(roll['next (success)']);
                 } else {
-                    resolvenode(roll['next (echec)']);
+                    resolveNode(roll['next (echec)']);
                 }
             }, rollTime);
         } else {
@@ -210,7 +219,7 @@ function propose(text, next) {
     footer.appendChild(btn);
 }
 
-function resolvenode(nodeName, restaurer = false) {
+function resolveNode(nodeName, restaurer = false) {
     const node = nodes[nodeName];
     if (restaurer) {
         node.choix.forEach(choix => {
@@ -243,7 +252,7 @@ function resolvenode(nodeName, restaurer = false) {
                 appliquerModifEnemys(node.enemy);
             }
             if (isDead) {
-                resolvenode('Mort');
+                resolveNode('Mort');
                 return;
             }
             node.choix.forEach(choix => {
@@ -277,9 +286,9 @@ function playRollAnim(roll) {
             const modif = getModif(roll.modif);
             alert('Resultat du jet de force: ' + String(result + modif) + ',\nDD ' + String(roll.DD));
             if (result + modif >= roll.DD) {
-                resolvenode(roll['next (success)']);
+                resolveNode(roll['next (success)']);
             } else {
-                resolvenode(roll['next (echec)']);
+                resolveNode(roll['next (echec)']);
             }
         }
     }, rollInterval);
@@ -447,8 +456,8 @@ function choice(arr) {
     return arr[index];
 }
 
-function save(currentnode) {
-    localStorage.setItem('currentnode', currentnode);
+function save(currentNode) {
+    localStorage.setItem('currentNode', currentNode);
     localStorage.setItem('historique', JSON.stringify(historique));
     localStorage.setItem('inventory', JSON.stringify(inventory));
     localStorage.setItem('journal', JSON.stringify(journal));

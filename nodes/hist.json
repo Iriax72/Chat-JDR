@@ -1,4 +1,18 @@
 {
+    "setup": {
+        "enemys": [
+            {"name": "brigands", "hp": 5},
+            {"name": "ours", "hp": 2}
+        ],
+        "stats": {
+            "hp": 20,
+            "frc": 8,
+            "sag": 8,
+            "po": 5
+        },
+        "inventory": [[]],
+        "journal": [[]]
+    },
     "TODO": {
         "text": ["todo"],
         "choix": [{ "text": "recommencer", "next": "start" }]
