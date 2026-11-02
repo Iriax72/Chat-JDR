@@ -62,8 +62,9 @@ function resolveNode(nodeName, restaurer = false) {
             if (node.enemy) {
                 appliquerModifEnemys(node.enemy);
             }
-            if (isDead) {
+            if (resolveDeath) {
                 resolveNode('Mort');
+                resolveDeath = false;
                 return;
             }
             node.choix.forEach(choix => {

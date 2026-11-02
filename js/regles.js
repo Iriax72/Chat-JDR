@@ -171,7 +171,7 @@ function updateStat(stat, value) {
     stats[stat] = safeValue;
     if (stat === 'hp') {
         if (safeValue <= 0) {
-            isDead = true;
+            resolveDeath = true;
         }
         statsSpan[stat].innerText = Math.max(safeValue, 0) + '/20';
         return;
