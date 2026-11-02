@@ -26,6 +26,7 @@ function openPopup(listContent, popupName, className) {
 }
 
 function sendMessage(type, message, from, sendEffect = false) {
+    if (message === "") return
     if (type === 'text') {
         historique.push({type: type, from: from, message: message});
         const p = document.createElement('p');
