@@ -72,6 +72,7 @@ Object.keys(statsParDefaut).forEach(stat => updateStat(stat, stats[stat]));
 
 function resetGameState() {
     localStorage.removeItem('currentNode');
+    localStorage.removeItem('pendingNode');
     localStorage.removeItem('historique');
     localStorage.removeItem('inventory');
     localStorage.removeItem('journal');
@@ -111,16 +112,21 @@ fetch('../nodes/hist.json')
             const p = document.createElement('p');
             p.classList.add(message.from === 'player' ? 'player-text' : 'MJ-text');
             p.append(message.type === 'text' ? message.message
-                : message.type = 'dice' ? createHTMLDice(message.message)
+                : message.type === 'dice' ? createHTMLDice(message.message)
                 : 'Erreur, type de message inconnu'
             );
             main.appendChild(p);
         });
-        const historicExists = localStorage.getItem('currentNode') !== null;
-        if (!historicExists) {
+        const savedCurrentNode = localStorage.getItem('currentNode');
+        const pendingNode = localStorage.getItem('pendingNode');
+        if (pendingNode && Object.prototype.hasOwnProperty.call(nodes, pendingNode)) {
+            resolveNode(pendingNode);
+        } else if (savedCurrentNode && Object.prototype.hasOwnProperty.call(nodes, savedCurrentNode)) {
+            resolveNode(savedCurrentNode, true);
+        } else {
             resolveNode('setup');
+            resolveNode(currentNode);
         }
-        resolveNode(currentNode, historicExists);
     })
     .catch(error => {
         console.error("Erreur de chargement :", error);
@@ -233,6 +239,7 @@ function propose(text, next) {
         footer.innerHTML = '';
         sendMessage('text', text, 'player');
         if (typeof next === 'string') {
+            savePendingNode(next);
             resolveNode(next);
         } else if (
             typeof next === 'object'
@@ -242,13 +249,13 @@ function propose(text, next) {
             const roll = next.roll;
             const diceResult = Math.floor(Math.random() * roll.type) + 1;
             const modif = getModif(roll.modif);
+            const nextNode = diceResult + modif >= roll.DD
+                ? roll['next (success)']
+                : roll['next (echec)'];
             sendMessage('dice', diceResult, 'player', true);
+            savePendingNode(nextNode);
             setTimeout(() => {
-                if (diceResult + modif >= roll.DD) {
-                    resolveNode(roll['next (success)']);
-                } else {
-                    resolveNode(roll['next (echec)']);
-                }
+                resolveNode(nextNode);
             }, rollTime);
         } else {
             console.error('next est de type inconnu');
@@ -299,6 +306,7 @@ function resolveNode(nodeName, restaurer = false) {
                 }
             });
             save(nodeName);
+            localStorage.removeItem('pendingNode');
         }, text.length * writingTime);
     }, text.length * thikingTime);
 }
@@ -541,8 +549,14 @@ function choice(arr) {
     return arr[index];
 }
 
-function save(currentNode) {
-    localStorage.setItem('currentNode', currentNode);
+function savePendingNode(nodeName) {
+    localStorage.setItem('pendingNode', nodeName);
+    save(currentNode);
+}
+
+function save(nodeName) {
+    currentNode = nodeName;
+    localStorage.setItem('currentNode', nodeName);
     localStorage.setItem('historique', JSON.stringify(historique));
     localStorage.setItem('inventory', JSON.stringify(inventory));
     localStorage.setItem('journal', JSON.stringify(journal));

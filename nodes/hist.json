@@ -204,7 +204,11 @@
         ],
         "stats": {
             "po": {"add": 30}
-        }
+        },
+        "enemy": [{
+            "name": "brigands",
+            "hp": 0
+        }]
     },
     "Forêt 2": {
         "text": ["Cette forêt est un véritable labyrithe... Il y a autant de chemins possibles que de feuilles mortes"],
@@ -338,7 +342,7 @@
                 "type": 20,
                 "DD": 13,
                 "modif": "frc",
-                "next (success)": "Fight ours succes",
+                "next (success)": "Fight ours success",
                 "next (echec)": "Fight ours echec"
             }}
         }],
@@ -359,7 +363,7 @@
                 "type": 20,
                 "DD": 13,
                 "modif": "frc",
-                "next (success)": "Fight ours succes",
+                "next (success)": "Fight ours success",
                 "next (echec)": "Fight ours echec"
             }}, "condition": { "enemy": { "name": "ours", "hp": {"min": 2} } }},
             {"text": "Je continue avec un nouveau coup", "next": {"roll": {
@@ -405,7 +409,11 @@
             {"text": "Je me repause quelques instants et continue", "next": "Labyrinthe 1"}
         ],
         "stats": { "frc": {"add": 3} },
-        "inventory": [{"give": "🥩"}]
+        "inventory": [{"give": "🥩"}],
+        "enemy": [{
+            "name": "ours",
+            "hp": 0
+        }]
     },
     "Trésor 1": {
         "text": ["En marchant, vous remarquez un petit tas de pierre"],
