@@ -47,7 +47,7 @@ const rollTime = 3200; // [ms]
 const rollInterval = 125; // [ms]
 
 // Initialisation
-let isDead = false;
+let resolveDeath = false;
 let currentNode = localStorage.getItem('currentNode') ?? 'start';
 const historique = Array.isArray(safeReadJSON('historique', [])) ? safeReadJSON('historique', []) : [];
 const inventory = Array.isArray(safeReadJSON('inventory', defaultInventory)) ? safeReadJSON('inventory', defaultInventory) : defaultInventory;
@@ -79,7 +79,7 @@ function resetGameState() {
     localStorage.removeItem('enemysHp');
     localStorage.removeItem('stats');
 
-    isDead = false;
+    resolveDeath = false;
     currentNode = 'start';
     historique.length = 0;
     inventory.splice(0, inventory.length, ...defaultInventory);
