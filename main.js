@@ -50,7 +50,10 @@ const rollInterval = 125; // [ms]
 let resolveDeath = false;
 let currentNode = localStorage.getItem('currentNode') ?? 'start';
 const historique = Array.isArray(safeReadJSON('historique', [])) ? safeReadJSON('historique', []) : [];
-const inventory = Array.isArray(safeReadJSON('inventory', defaultInventory)) ? safeReadJSON('inventory', defaultInventory) : defaultInventory;
+const storedInventory = safeReadJSON('inventory', defaultInventory);
+const inventory = Array.isArray(storedInventory) && storedInventory.length > 0
+    ? storedInventory
+    : [...defaultInventory];
 const journal = Array.isArray(safeReadJSON('journal', [])) ? safeReadJSON('journal', []) : [];
 
 const enemysHp = { ...defaultEnemysHp, ...safeReadJSON('enemysHp', defaultEnemysHp) };

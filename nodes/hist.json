@@ -10,7 +10,6 @@
             "sag": 8,
             "po": 5
         },
-        "inventory": [],
         "journal": []
     },
     "TODO": {
@@ -36,7 +35,6 @@
             "frc": 8,
             "sag": 8
         },
-        "inventory": [],
         "journal": []
     },
     "Barman": {
