@@ -1,9 +1,17 @@
 {
-"enemys": [
-    {"name": "brigands", "hp": 4},
-    {"name": "ours", "hp": 2}
-],
-"nodes": {
+    "setup": {
+        "enemys": [
+            {"name": "brigands", "hp": 4},
+            {"name": "ours", "hp": 2}
+        ],
+        "stats": {
+            "hp": 20,
+            "frc": 8,
+            "sag": 8,
+            "po": 5
+        },
+        "journal": []
+    },
     "TODO": {
         "text": ["Cette zone est encore en cours de construction par les bâtisseurs du royaume."],
         "choix": [{ "text": "Faire demi-tour", "next": "Dehors" }]
@@ -27,7 +35,6 @@
             "frc": 8,
             "sag": 8
         },
-        "inventory": [],
         "journal": []
     },
     "Barman": {
@@ -125,19 +132,19 @@
         "text": ["\"Une pièce fantastique !\" Le marchand vous tend une bourse bien remplie."],
         "choix": [{ "text": "Continuer", "next": "Estillon_Brocante" }],
         "stats": { "po": {"add": 35} },
-        "inventory": [{"take": "🏺 Relique ancienne"}]
+        "inventory": [{"remove": "🏺 Relique ancienne"}]
     },
     "Vente_Calice": {
         "text": ["L'antiquaire examine le travail de l'argent et vous règle immédiatement."],
         "choix": [{ "text": "Continuer", "next": "Estillon_Brocante" }],
         "stats": { "po": {"add": 25} },
-        "inventory": [{"take": "🍷 Calice en argent"}]
+        "inventory": [{"remove": "🍷 Calice en argent"}]
     },
     "Vente_Tiare": {
         "text": ["Les yeux du brocanteur pétillent en voyant les pierres précieuses ! Il vous offre une somme astronomique."],
         "choix": [{ "text": "Continuer", "next": "Estillon_Brocante" }],
         "stats": { "po": {"add": 60} },
-        "inventory": [{"take": "👑"}]
+        "inventory": [{"remove": "👑"}]
     },
     "Estillon_Magie": {
         "text": ["Un vieil arcaniste encapuchonné vous propose ses élixirs."],
@@ -506,4 +513,4 @@
             { "text": "Rentrer à l'auberge", "next": "Dehors" }
         ]
     }
-}}
+}
