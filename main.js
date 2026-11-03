@@ -107,7 +107,7 @@ crossBtn.addEventListener('click', () => {
 // Obtenir les nodes a partie de hist.json
 // Et lancer la partie
 let nodes = {};
-fetch('../nodes/gemini/hist.json')
+fetch('../nodes/hist.json') // '/nodes/gemini/hist.json' est aussi possible
     .then(reponse => reponse.json())
     .then(donnees => {
         nodes = donnees;
