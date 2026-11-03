@@ -9,8 +9,7 @@
             "frc": 8,
             "sag": 8,
             "po": 5
-        },
-        "journal": []
+        }
     },
     "TODO": {
         "text": ["todo"],
@@ -34,8 +33,7 @@
             "po": 5,
             "frc": 8,
             "sag": 8
-        },
-        "journal": []
+        }
     },
     "Barman": {
         "text": ["Bonsoir voyageur, qu'est ce que je vous sers ?"],
