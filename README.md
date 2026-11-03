@@ -88,7 +88,7 @@ Les propriétés de scène suivantes sont prises en charge :
 | `choix` | Réponses proposées. Chaque choix contient `text`, `next` et, facultativement, `condition`. |
 | `stats` | Modifications de `hp`, `po`, `frc` ou `sag`. Une valeur numérique remplace la caractéristique ; `{ "add": n }` lui ajoute `n`. |
 | `inventory` / `journal` | Liste d’actions `{ "give": "..." }` ou `{ "remove": "..." }`. Une liste vide efface la liste concernée. |
-| `enemy` | Modifications des points de vie d’ennemis, sous la forme `{ "name": "...", "hp": n }` ou `{ "name": "...", "hp": { "add": n } }`. |
+| `enemy` | Modifications des points de vie d’ennemis : `{ "name": "...", "hp": n }` fixe les PV, `{ "name": "...", "hp": { "add": n } }` les modifie, et `{ "name": "...", "reset": true }` restaure la valeur initiale définie dans `main.js`. |
 
 Une `condition` est facultative ; sans elle, le choix est disponible. Les conditions peuvent vérifier la présence d’un objet ou d’une entrée du journal (`inventory`, `journal`), une caractéristique (`stat`) ou les points de vie d’un ennemi (`enemy`). Pour les caractéristiques et les ennemis, utilisez une valeur exacte ou une borne `min` / `max`. Un tableau de conditions signifie qu’elles doivent toutes être vraies.
 
@@ -121,4 +121,4 @@ Si vous ajoutez une scène, pensez à vérifier ses conditions, ses effets et to
 
 ## Licence et crédits
 
-Le code est distribué sous licence [MIT](./LICENSE). L’icône du dé est créditée à [Magnific sur Flaticon](https://www.flaticon.com/free-icons/d20). Les fichiers dans `/nodes/gemini/` sont générés par IA (``Gemini 3``), basés sur le fichiers `/nodes/hist.json`. Le reste a été fait par Léandre Touma, assisté de ``Gemini 3`` et de ``GitHub Copilot``. Ce `README.md` est, mis-à-part ce dernier paragraphe, généré par ``GitHub Copilot``
+Le code est distribué sous licence [MIT](./LICENSE). L’icône du dé est créditée à [Magnific sur Flaticon](https://www.flaticon.com/free-icons/d20). Les fichiers dans `/nodes/gemini/` ainsi qur `/assets/map.jpg` sont générés par IA (``Gemini 3``), basés sur le fichiers `/nodes/hist.json`. Le reste a été fait par Léandre Touma, assisté de ``Gemini 3`` et de ``GitHub Copilot``. Ce `README.md` est, mis-à-part ce dernier paragraphe, généré par ``GitHub Copilot``

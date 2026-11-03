@@ -149,6 +149,14 @@ function appliquerModifEnemys(modifs) {
     modifs.forEach(modif => {
         const name = modif.name;
         const hp = modif.hp;
+        if (modif.reset === true) {
+            if (!Object.prototype.hasOwnProperty.call(defaultEnemysHp, name)) {
+                console.error(`Ennemi inconnu dans nodes.json : ${name}`);
+                return;
+            }
+            enemysHp[name] = defaultEnemysHp[name];
+            return;
+        }
         if (typeof hp === 'number') {
             enemysHp[name] = hp
         } else if (

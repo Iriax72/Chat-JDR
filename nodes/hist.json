@@ -1,9 +1,5 @@
 {
     "setup": {
-        "enemys": [
-            {"name": "brigands", "hp": 5},
-            {"name": "ours", "hp": 2}
-        ],
         "stats": {
             "hp": 20,
             "frc": 8,
@@ -137,11 +133,7 @@
             }}},
             { "text": "Je tente de m'enfuire", "next": "Fuite brigands" }
         ],
-        "stats": { "hp": {"add": -2} },
-        "enemy": [{
-            "name": "brigands",
-            "hp": 5
-        }]
+        "stats": { "hp": {"add": -2} }
     },
     "Fight brigands": {
         "text": [
@@ -344,7 +336,7 @@
         }],
         "enemy": [{
             "name": "ours",
-            "hp": 2
+            "reset": true
         }],
         "stats": { "hp": {"add": -5} }
     },

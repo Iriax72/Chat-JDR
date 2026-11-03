@@ -1,9 +1,5 @@
 {
     "setup": {
-        "enemys": [
-            {"name": "brigands", "hp": 4},
-            {"name": "ours", "hp": 2}
-        ],
         "stats": {
             "hp": 20,
             "frc": 8,
@@ -182,7 +178,7 @@
         "choix": [
             { "text": "Frapper le premier gobelin !", "next": {"roll": {"type": 20, "DD": 6, "modif": "frc", "next (success)": "Gobelin_1_Success", "next (echec)": "Gobelin_1_Echec"}} }
         ],
-        "enemy": [{"name": "gobelin_1", "hp": 2}],
+        "enemy": [{"name": "gobelin_1", "reset": true}],
         "stats": {"hp": {"add": -1}}
     },
     "Gobelin_1_Success": {
@@ -199,7 +195,7 @@
         "choix": [
             { "text": "L'abattre d'une estocade !", "next": {"roll": {"type": 20, "DD": 7, "modif": "frc", "next (success)": "Gobelin_2_Success", "next (echec)": "Gobelin_2_Echec"}} }
         ],
-        "enemy": [{"name": "gobelin_2", "hp": 2}]
+        "enemy": [{"name": "gobelin_2", "reset": true}]
     },
     "Gobelin_2_Success": {
         "text": ["Le second gobelin s'effondre ! Mais la cohue s'intensifie, un troisième s'avance."],
@@ -215,7 +211,7 @@
         "choix": [
             { "text": "Se retourner et faire volte-face !", "next": {"roll": {"type": 20, "DD": 8, "modif": "sag", "next (success)": "Gobelin_3_Success", "next (echec)": "Gobelin_3_Echec"}} }
         ],
-        "enemy": [{"name": "gobelin_3", "hp": 3}]
+        "enemy": [{"name": "gobelin_3", "reset": true}]
     },
     "Gobelin_3_Success": {
         "text": ["Vous parez au dernier moment et terrassez l'avorton. Un silence lourd s'installe... puis le sol tremble."],
@@ -231,7 +227,7 @@
         "choix": [
             { "text": "Engager le combat final contre le Chef Gobelin !", "next": {"roll": {"type": 20, "DD": 11, "modif": "frc", "next (success)": "Boss_Gobelin_Success", "next (echec)": "Boss_Gobelin_Echec"}} }
         ],
-        "enemy": [{"name": "chef_gobelin", "hp": 6}]
+        "enemy": [{"name": "chef_gobelin", "reset": true}]
     },
     "Boss_Gobelin_Success": {
         "text": ["Votre arme traverse la garde du boss et le terrasse net ! La tribu restante s'enfuit terrifiée dans les marais. Vous découvrez leur trésor caché."],
@@ -280,7 +276,7 @@
             { "text": "Attaquer le dragon par surprise avant qu'il ne se dresse complètement !", "next": {"roll": {"type": 20, "DD": 12, "modif": "frc", "next (success)": "Dragon_P1_Success", "next (echec)": "Dragon_P1_Echec"}} },
             { "text": "Prendre les jambes à son cou et fuir !", "next": "Chateau_Entree" }
         ],
-        "enemy": [{"name": "dragon", "hp": 10}]
+        "enemy": [{"name": "dragon", "reset": true}]
     },
     "Dragon_P1_Success": {
         "text": ["Votre lame tranche les écailles de sa patte ! Le dragon hurle de douleur et se replie un instant. Mais sa blessure déclenche une fureur incontrôlable..."],
@@ -370,8 +366,7 @@
         "choix": [
             { "text": "Oh que oui !", "next": {"roll": {"type": 20, "DD": 8, "modif": "frc", "next (success)": "Brigands fight succes", "next (echec)": "Brigands fight echec"}} }
         ],
-        "stats": { "hp": {"add": -2} },
-        "enemy": [{"name": "brigands", "hp": 5}]
+        "stats": { "hp": {"add": -2} }
     },
     "Fight brigands": {
         "text": ["\"Prends ça !\" Ouch, c'est un vilain coup."],
@@ -396,7 +391,8 @@
             { "text": "Je continue mon chemin", "next": "Forêt 2" },
             { "text": "Retourner vers l'auberge", "next": "Dehors" }
         ],
-        "stats": { "po": {"add": 30} }
+        "stats": { "po": {"add": 30} },
+        "enemy": [{"name": "brigands", "hp": 0}]
     },
     "Forêt 2": {
         "text": ["Cette forêt est un véritable labyrinthe... Il y a autant de chemins possibles que de feuilles mortes."],
