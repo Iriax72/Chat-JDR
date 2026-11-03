@@ -41,6 +41,7 @@ function safeReadJSON(key, fallback) {
 }
 
 // Valeurs arbitraires
+const histSrc = '../nodes/hist.json'; // Est aussi possible '../nodes/gemini/hist.json'
 const writingTime = 30; // [ms/char]
 const thikingTime = 10; // [ms/char]
 const rollTime = 3200; // [ms]
@@ -104,10 +105,10 @@ crossBtn.addEventListener('click', () => {
     resetGameState();
 })
 
-// Obtenir les nodes a partie de hist.json
+// Obtenir les nodes a partie du .json
 // Et lancer la partie
 let nodes = {};
-fetch('../nodes/hist.json') // '/nodes/gemini/hist.json' est aussi possible
+fetch(histSrc)
     .then(reponse => reponse.json())
     .then(donnees => {
         nodes = donnees;
