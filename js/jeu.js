@@ -78,37 +78,6 @@ function resolveNode(nodeName, restaurer = false) {
     }, text.length * thikingTime);
 }
 
-/*
-function playRollAnim(roll) {
-    const result = Math.floor(Math.random() * roll.type) + 1;
-    const diceContainer = document.createElement('div');
-    diceContainer.classList.add('dice-container', 'rolling');
-    const dice = diceImg.cloneNode();
-    dice.removeAttribute('id');
-    const span = document.createElement('span');
-    diceContainer.appendChild(dice);
-    diceContainer.appendChild(span);
-    document.body.appendChild(diceContainer);
-    let time = 0;
-    let interval = setInterval(() => {
-        time += rollInterval
-        span.textContent = Math.floor(Math.random() * roll.type) + 1
-        if (time > rollTime) {
-            clearInterval(interval);
-            diceContainer.classList.remove('rolling');
-            span.textContent = String(result);
-            const modif = getModif(roll.modif);
-            alert('Resultat du jet de force: ' + String(result + modif) + ',\nDD ' + String(roll.DD));
-            if (result + modif >= roll.DD) {
-                resolveNode(roll['next (success)']);
-            } else {
-                resolveNode(roll['next (echec)']);
-            }
-        }
-    }, rollInterval);
-}
-*/
-
 function choice(arr) {
     if (typeof arr === 'string') {
         return arr;
