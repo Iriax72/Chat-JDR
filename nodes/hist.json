@@ -90,8 +90,9 @@
         "choix": [
             { "text": "Je pars au Nord", "next": "Nord" },
             { "text": "Allons pour Westelle", "next": "TODO" },
-            { "text": "Estillon semble plus accuillant", "next": "TODO" },
-            { "text": "Aventurier dans l'âme, pour le Sud !", "next": "TODO" }
+            { "text": "Estillon semble plus accuillant", "next": "Est" },
+            { "text": "Aventurier dans l'âme, pour le Sud !", "next": "TODO" },
+            { "text": "Je rentre au chaud dans l'auberge", "next": "start"}
         ]
     },
 
@@ -424,7 +425,107 @@
         ]
     },
     "Ermite": {
-        "text": [""],
+        "text": ["TODO"],
+        "choix": []
+    },
+
+    "Est": {
+        "text": "Plus vous vous approchez de la ville, plus vous sentez la vie. Alors que l'auberge était perdue dans une pleine déserte, les abords d'Estillon regorgent de marchands et de paysants, tous affairés à leur travail.\nEnfin, vois arrivez en vue des majestueuses porte de la cité, gardées de toutes parts par des soldats du Royaume.",
+        "choix": [
+            { "text": "Finalement, je préfère ne pas y aller.", "next": "Dehors" },
+            { "text": "J'entre !", "next": "Estillon entrée" }
+        ]
+    },
+    "Estillon entrée": {
+        "text": "À peine entré, que vous êtes déjà submergé par les exclamations, la bonne odeur de pain chaud et les couleurs vives des échopes environnentes. Malgré les nombreuses patrouilles de soldats, les rues débordent de personnes vacantes à leurs diverses occupations. Ce doit être le jour du marché pour qu'autant de gens s'affairent ainsi !",
+        "choix": [
+            { "text": "Je rentre à l'auberge", "next": "Dehors" },
+            { "text": "J'entre dans une brasserie", "next": "Brasserie" },
+            { "text": "Je vais voir l'acrobate sur la place", "next": "Acrobate" },
+            { "text": "Je prends les escaliers", "next": "Estillon centre" }
+        ]
+    },
+    "Brasserie": {
+        "text": "Vous poussez la porte et êtes immédiatement accueilli par un petit homme rondouillard:\n\"Vous avez de la chance, nous servons aujourd'hui du ragout! une spécialité rare et prisée.\"",
+        "choix": [
+            { "text": "Magnifique, j'en prends un", "next": "Ragout", "condition": {"stat": {"po": {"min": 5}}} },
+            { "text": "Je ressors poliement", "next": "Estillon entrée" }
+        ]
+    },
+    "Ragout": {
+        "text": "C'est un plat délicieux qu'on vous sert, accompagné d'un vin de la region. Voila qui vous redonne des forces pour votre périple.",
+        "choix": [
+            { "text": "Je paie la note et resors", "next": "Brasserie sortie" },
+            { "text": "J'essaie de sortir discrètement sans payer", "next": "Fraude" }
+        ],
+        "stats": {"hp": 20}
+    },
+    "Brasserie sortie": {
+        "text": "\"Merci et à bientot\" s'exclame le petit bonhomme.",
+        "choix": [{ "text": "continuer", "next": "Estillon entrée" }],
+        "stats": {"po": {"add": -5}}
+    },
+    "Fraude": {
+        "text": "\"Hola gredin !\" s'exclame le petit bonhomme. Rattrapé par son acolyte quelque peu plus menaçant, vous êtes contraint de payer le dû. Vous ressortez endolori de sa poigne de fer",
+        "choix": [{ "text": "continuer", "next": "Estillon entrée" }],
+        "stats": {
+            "hp": {"add": -2},
+            "po": {"add": -5}
+        }
+    },
+    "Acrobate": {
+        "text": "Vous parvenez à vous frayer un chemin parmis la foule emerveillée. Devant vous se dresse un individu long et mince, dont les articulations semblent n'être retenues par aucun cartilage. Il saute sur ses bras avant d'enchainer avec diverses acrobaties.",
+        "choix": [
+            { "text": "Je lui jette une pièce et repart", "next": "Générosité", "condition": {"stat": {"po": {"min": 1}}} },
+            { "text": "Je crie \"Eh! capable de me faire de la magie ?\"", "next": "Acrobate magie" },
+            { "text": "Je retourne vers le marché", "next": "Estillon entrée" }
+        ]
+    },
+    "Acrobate magie": {
+        "text": "\"Mais bien sûr monseigneur, je peux faire disparaitre toutes sortes de choses. Je dirais même qu'elle à déjà opperée",
+        "choix": [
+            { "text": "Ah bon ?", "next": "Acrobate magie echec", "condition": {"stat": {"sag": {"max": 14}}} },
+            { "text": "Tu ne m'auras pas !", "next": "Acrobate magie success", "condition": {"stat": {"sag": {"min": 15}}} }
+        ]
+    },
+    "Acrobate magie echec": {
+        "text": "Étrange, j'ai l'impression il ne s'est rien passé.",
+        "choix": [{ "text": "continuer", "next": "Estillon entrée" }],
+        "stats": {
+            "po": {"add": -3}
+        }
+    },
+    "Acrobate magie success": {
+        "text": "Son camarade vous délestant de votre bourse ne vous aura pas échappé. Il repart avec une jolie bosse bien méritée",
+        "choix": [{ "text": "continuer", "next": "Estillon entrée" }]
+    },
+    "Générosité": {
+        "text": "\"Merci monseigneur\"\nVous voila plus heureux d'un acte de générosité. Je vous sens comme pousser des aimes.",
+        "choix": [{ "text": "continuer", "next": "Estillon entrée" }],
+        "stats": {
+            "po": {"add": -1},
+            "sag": {"add": 2}
+        }
+    },
+    "Estillon centre": {
+        "text": "Vous arrivez dans le quartier le plus proche des appartements royaux. Les boutiques coûteront probablement plus cher, mais on dit que nul n'égale le talent des artisants du Roi.",
+        "choix": [
+            { "text": "J'entre dans l'armurerie", "next": "Armurerie" },
+            { "text": "J'entre chez l'orfèvre royal", "next": "Orfèvrerie" },
+            { "text": "J'entre dans le quartier de la Guilde", "next": "Guilde" },
+            { "text": "Je redescends", "next": "Estillon entrée" }
+        ]
+    },
+    "Orfèvrerie": {
+        "text": "TODO",
+        "choix": []
+    },
+    "Armurerie": {
+        "text": "TODO",
+        "choix": []
+    },
+    "Guilde": {
+        "text": "TODO",
         "choix": []
     }
 }

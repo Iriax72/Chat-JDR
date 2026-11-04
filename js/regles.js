@@ -100,7 +100,7 @@ function appliquerModificationsStats(modifications) {
             typeof modification.add === 'number' &&
             Number.isFinite(modification.add)
         ) {
-            updateStat(stat, stats[stat] + modification.add);
+            updateStat(stat, max(stats[stat] + modification.add, 0));
             return;
         }
         console.error(`Modification invalide pour la stat ${stat} dans nodes.json`);
