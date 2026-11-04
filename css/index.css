@@ -1,5 +1,11 @@
+:root {
+    --primary-color: #047393;
+    --dark-grey: #153a42;
+    --white: #faebd6;
+}
+
 body {
-    background-color: #40d;
+    background-color: var(--dark-grey);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -8,8 +14,8 @@ body {
 a {
     width: 65dvw;
     height: 35vh;
-    background-color: chocolate;
-    color: #40d;
+    background-color: var(--primary-color);
+    color: var(--white);
     font-size: 1.6rem;
     display: flex;
     align-items: center;
