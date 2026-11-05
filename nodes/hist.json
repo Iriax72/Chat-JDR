@@ -482,7 +482,7 @@
         ]
     },
     "Acrobate magie": {
-        "text": "\"Mais bien sûr monseigneur, je peux faire disparaitre toutes sortes de choses. Je dirais même qu'elle à déjà opperée",
+        "text": "\"Mais bien sûr monseigneur, je peux faire disparaitre toutes sortes de choses. Je dirais même qu'elle a déjà opperée",
         "choix": [
             { "text": "Ah bon ?", "next": "Acrobate magie echec", "condition": {"stat": {"sag": {"max": 14}}} },
             { "text": "Tu ne m'auras pas !", "next": "Acrobate magie success", "condition": {"stat": {"sag": {"min": 15}}} }
@@ -500,7 +500,7 @@
         "choix": [{ "text": "continuer", "next": "Estillon entrée" }]
     },
     "Générosité": {
-        "text": "\"Merci monseigneur\"\nVous voila plus heureux d'un acte de générosité. Je vous sens comme pousser des aimes.",
+        "text": "\"Merci monseigneur\"\nVous voila plus heureux d'un acte de générosité. Je vous sens comme pousser des ailes.",
         "choix": [{ "text": "continuer", "next": "Estillon entrée" }],
         "stats": {
             "po": {"add": -1},
@@ -512,7 +512,7 @@
         "choix": [
             { "text": "J'entre dans l'armurerie", "next": "Armurerie" },
             { "text": "J'entre chez l'orfèvre royal", "next": "Orfèvrerie" },
-            { "text": "J'entre dans le quartier de la Guilde", "next": "Guilde" },
+            { "text": "J'entre dans le quartier de la Guilde des Mages", "next": "Guilde" },
             { "text": "Je redescends", "next": "Estillon entrée" }
         ]
     },
